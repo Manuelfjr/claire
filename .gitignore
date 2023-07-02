@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Exclude extras
+*.lock
+*.ipynb
+!01*.ipynb
+![0-9][0-9]*.ipynb
+
 # Distribution / packaging
 .Python
 build/

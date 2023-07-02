@@ -1,4 +1,4 @@
-include_random_model: False
+include_random_model: True
 
 beta_params:
     learning_rate: 0.1
@@ -27,7 +27,7 @@ models_fit:
     
 general:
     min: &min 1
-    max: &max 4
+    max: &max 9
     step: 1
     random_state: &random_state 0
 models:

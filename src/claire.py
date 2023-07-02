@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import List, Dict, Tuple, Any, Callable
 from utils.processing.transform import TransformPairwise
 
+
 PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
 
@@ -88,7 +89,9 @@ class CLAIRE:
 
     def generate_pij_matrix(
         self,
-        data_results: pd.DataFrame
+        data_results: pd.DataFrame,
+        k_random_models: int = 0,
+        n_clusters: int = 3
     ) -> pd.DataFrame:
         """Generate the pij matrix.
 
@@ -100,10 +103,23 @@ class CLAIRE:
         -------------------------------------------------------
             pij matrix.
         """
+        for i in range(k_random_models):
+            data_results[f"random_model_n{i+1}"] = np.random.randint(
+                0,
+                n_clusters,
+                data_results.shape[0]
+            )
+           
         tp = TransformPairwise(data_results, 4)
         pij = tp.generate_pij_matrix(data_results)
-        pij["average_model"] = pij.mean(axis=1)
-        pij["optimal_clustering"] = pij.max(axis=1)
+
+        pij["average_model"] = pij[
+            pij.filter(regex = '^(?!.*random)', axis = 1).columns
+        ].mean(axis=1)
+        pij["optimal_clustering"] =  pij[
+            pij.filter(regex = '^(?!.*random)', axis = 1).columns
+        ].max(axis=1)
+
         return pij
 
     def fit_beta4(
@@ -210,5 +226,5 @@ class CLAIRE:
         for content, url in zip(data_contents, url_save_dataset_i):
             for data_save in content[1:]:
                 if data_save is not None:
-                    print(url / data_save[0])
-                    #data_save[1].to_csv( url / data_save[0] )
+                    #print(url / data_save[0])
+                    data_save[1].to_csv( url / data_save[0] )

@@ -73,13 +73,13 @@ path_result = Path(config.dir_result)
 for k_random in tqdm(range(number_random_models)):
 #     if k_random > 0:
 #         break
-    which_k_random = "n_random_model: [{}]".format(k_random+1)
+    which_k_random = "n_random_model: [ {} ]".format(k_random+1)
     print(title_part_n1 + which_k_random + title_part_n3)
     if (number_random_models != 1):
         path_result = path_result / Path(f"random_n{k_random+1}")
         if not os.path.exists(PROJECT_DIR / path_result):
             os.makedirs(path_result)
-            
+    
     claire = CLAIRE(
         models_name = config.models_name,
         models = config.models,
@@ -91,13 +91,22 @@ for k_random in tqdm(range(number_random_models)):
         path_root = PROJECT_DIR,
     )
     for i in tqdm(config.file_names):
-        which_k_dataset = "dataset: [{}]".format(i)
+        if len(np.unique(_Y[i])) == 1:
+            n_clusters = np.random.randint(0, 10)
+        else:
+            n_clusters = len(np.unique(_Y[i]))
+        
+        which_k_dataset = "dataset: [ {} ]".format(i)
         print(title_part_n1 + which_k_dataset + title_part_n3)
         #  processing
         combination_models = claire.transform()
         claire.fit_combination_models(combination_models, _X[i])
         data_results = claire.generate_results(combination_models)
-        pij = claire.generate_pij_matrix(data_results)
+        pij = claire.generate_pij_matrix(
+            data_results,
+            k_random + 1,
+            n_clusters
+        )
 
         # set beta4 params
         beta_params = parameters["beta_params"]|{

@@ -8,9 +8,7 @@ __pycache__/
 
 # Exclude extras
 *.lock
-notebooks/02_generate_correlations.ipynb
-notebooks/03_generate_plots.ipynb
-notebooks/04_generate_plot_clusters.ipynb
+*0[2-9]*.ipynb
 
 # Distribution / packaging
 .Python

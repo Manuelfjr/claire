@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "aaai-claire-clustering"
+version = "0.1.0"
+description = "CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+jupyter = "^1.0.0"
+pandas = "^2.0.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

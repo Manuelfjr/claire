@@ -8,9 +8,8 @@ __pycache__/
 
 # Exclude extras
 *.lock
-*.ipynb
-!01*.ipynb
-![0-9][0-9]*.ipynb
+*[2-9]*.ipynb
+
 
 # Distribution / packaging
 .Python

@@ -1,0 +1,51 @@
+include_random_model: False
+
+beta_params:
+    learning_rate: 0.1
+    epochs: 10000
+    n_inits: 1000
+    # n_workers: -1,
+    random_seed: 1
+    tol: 1.0e-8
+    set_priors: True
+    
+datasets:
+    - aniso
+    - blobs
+    - varied
+    - noisy_moons
+    - noisy_circles
+    - no_structure
+    
+models_fit: 
+    - kmeans
+    - dbscan
+    - kernel_kmeans
+    - spectral_clustering
+    - mean_shift
+    - optics
+    
+general:
+    min: &min 1
+    max: &max 4
+    step: 1
+    random_state: &random_state 0
+models:
+    kmeans:
+    dbscan:
+        eps:
+            min: &min_dbscan 0.1
+            max: *min
+            step: *min_dbscan
+        min_samples: 2
+    kernel_kmeans:
+        kernel: gak
+        random_state: *random_state
+    spectral_clustering:
+        eigen_solver: arpack
+        affinity: nearest_neighbors
+    mean_shift: 
+        - {}
+    optics:
+        - {}
+    

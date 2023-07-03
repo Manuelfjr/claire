@@ -1,5 +1,5 @@
 The currently activated Python version 3.8.10 is not supported by the project (>=3.10, <3.12).
-Trying to find and use a compatible version. 
+Trying to find and use a compatible version.
 Using python3.10 (3.10.11)
 2023-07-03 14:45:11.131127: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.

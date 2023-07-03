@@ -45,6 +45,6 @@ models:
         eigen_solver: arpack
         affinity: nearest_neighbors
     mean_shift:
-        - {}
+        - &none_args {}
     optics:
-        - {}
+        - *none_args

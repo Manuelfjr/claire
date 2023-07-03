@@ -46,8 +46,9 @@ if parameters["include_random_model"]:
 else:
     number_random_models = 1
 path_result = Path(config.dir_result)
+step_pause = 7
 
-for k_random in tqdm(range(number_random_models)):
+for k_random in tqdm(range(step_pause, number_random_models)):
     #     if k_random > 0:
     #         break
     which_k_random = "n_random_model: [ {} ]".format(k_random + 1)
@@ -132,3 +133,4 @@ for k_random in tqdm(range(number_random_models)):
 
         # save
         claire.save_results(i, dir_contents)
+    path_result = Path(config.dir_result)

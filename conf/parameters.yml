@@ -8,7 +8,7 @@ beta_params:
     random_seed: 1
     tol: 1.0e-8
     set_priors: True
-    
+
 datasets:
     - aniso
     - blobs
@@ -16,15 +16,15 @@ datasets:
     - noisy_moons
     - noisy_circles
     - no_structure
-    
-models_fit: 
+
+models_fit:
     - kmeans
     - dbscan
     - kernel_kmeans
     - spectral_clustering
     - mean_shift
     - optics
-    
+
 general:
     min: &min 1
     max: &max 9
@@ -44,8 +44,7 @@ models:
     spectral_clustering:
         eigen_solver: arpack
         affinity: nearest_neighbors
-    mean_shift: 
+    mean_shift:
         - {}
     optics:
         - {}
-    

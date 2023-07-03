@@ -5,17 +5,11 @@ from pathlib import Path
 PROJECT_DIR = Path.cwd()  # .parent
 sys.path.append(str(PROJECT_DIR))
 import re
+
 import numpy as np
 
 # models
-from sklearn.cluster import (
-    DBSCAN,
-    OPTICS,
-    KMeans,
-    MeanShift,
-    SpectralClustering,
-)
-from tslearn.clustering import KernelKMeans
+from sklearn.cluster import DBSCAN, OPTICS, KMeans, MeanShift, SpectralClustering
 
 # metrics
 from sklearn.metrics import (
@@ -26,6 +20,7 @@ from sklearn.metrics import (
     silhouette_score,
     v_measure_score,
 )
+from tslearn.clustering import KernelKMeans
 
 # utils
 from utils.reader import read_file_yaml

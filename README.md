@@ -10,7 +10,7 @@ Run:
 sudo apt install poetry
 ```
 
-# Git clone 
+# Git clone
 
 Clone this repository:
 

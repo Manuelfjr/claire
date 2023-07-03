@@ -1,0 +1,5 @@
+- id: pytest
+  name: Run Pytest
+  entry: poetry run pytest
+  language: system
+  types: [python]

@@ -1,3 +1,3 @@
-from . import config, reader, generation
+from . import config, generation, reader
 
 __all__ = ["config", "reader", "generation"]

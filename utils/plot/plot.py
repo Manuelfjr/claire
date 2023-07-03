@@ -11,7 +11,6 @@ class GeneratePlots:
         self.data = data
 
     def scatterplot(self, nrows=2, ncols=2, figsize=(18, 14), plot_parameters=None):
-        
         params_english = ["difficulties", "discrimination"]
         params_portugues = ["dificuldades", "discriminações"]
         fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
@@ -28,7 +27,7 @@ class GeneratePlots:
             if name != "uniform":
                 if name in params_english + self.pij.columns.to_list() + params_portugues:
                     points = ax.scatter(**params)
-                    cbar = ax.collections[0].colorbar
+                    ax.collections[0].colorbar
                     if name in params_english:
                         ax.set_title(f"{name}")
                     else:
@@ -42,7 +41,7 @@ class GeneratePlots:
                     ax.set_title(f"{name}")
                     ax.set_xlabel("pc1")
                     ax.set_ylabel("pc2")
-                    cbar = ax.collections[0].colorbar
+                    ax.collections[0].colorbar
         return axes
 
     def scatterplot_diff_disc(self, nrows=5, ncols=2, figsize=(18, 14), plot_parameters=None):

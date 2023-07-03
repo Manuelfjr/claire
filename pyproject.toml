@@ -14,9 +14,22 @@ numba = "^0.57.1"
 tslearn = "^0.5.3"
 tensorflow = "^2.12.0"
 birt-gd = "^0.1.47"
+pre-commit = "^3.3.3"
 
 [tool.poetry.dev-dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py38']
+exclude = '''
+    /(\.direnv|\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|\.venv3|_build|buck-out|build|dist)/
+'''
+
+[tool.flake8]
+max-line-length = 120

@@ -11,6 +11,7 @@ from utils.processing.transform import TransformPairwise
 PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
 
+
 class CLAIRE:
     """CLAIRE applying within an input matrix."""
 
@@ -46,16 +47,12 @@ class CLAIRE:
         self.metrics = metrics
         self.dir_result = dir_result
         self.path_root = path_root
-    
+
     def transform(self):
         combination_models = TransformPairwise().combination_models(self.models, self.params)
         return combination_models
 
-    def fit_combination_models(
-        self,
-        combination_models: List[object],
-        X_dataset_i: Any
-    ) -> None:
+    def fit_combination_models(self, combination_models: List[object], X_dataset_i: Any) -> None:
         """Fit the combination models to the training data.
 
         Parameters:
@@ -63,14 +60,11 @@ class CLAIRE:
             combination_models: List of combination models.
             X_dataset_i: Input data for dataset i.
         """
-        
+
         for model in combination_models:
             model.fit(X_dataset_i)
 
-    def generate_results(
-        self,
-        data_results: Any
-    ) -> pd.DataFrame:
+    def generate_results(self, data_results: Any) -> pd.DataFrame:
         """Generate the results DataFrame.
 
         Parameters:
@@ -88,10 +82,7 @@ class CLAIRE:
         return pd.DataFrame(self.results)
 
     def generate_pij_matrix(
-        self,
-        data_results: pd.DataFrame,
-        k_random_models: int = 0,
-        n_clusters: int = 3
+        self, data_results: pd.DataFrame, k_random_models: int = 0, n_clusters: int = 3
     ) -> pd.DataFrame:
         """Generate the pij matrix.
 
@@ -104,29 +95,17 @@ class CLAIRE:
             pij matrix.
         """
         for i in range(k_random_models):
-            data_results[f"random_model_n{i+1}"] = np.random.randint(
-                0,
-                n_clusters,
-                data_results.shape[0]
-            )
-           
+            data_results[f"random_model_n{i+1}"] = np.random.randint(0, n_clusters, data_results.shape[0])
+
         tp = TransformPairwise(data_results, 4)
         pij = tp.generate_pij_matrix(data_results)
 
-        pij["average_model"] = pij[
-            pij.filter(regex = '^(?!.*random)', axis = 1).columns
-        ].mean(axis=1)
-        pij["optimal_clustering"] =  pij[
-            pij.filter(regex = '^(?!.*random)', axis = 1).columns
-        ].max(axis=1)
+        pij["average_model"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].mean(axis=1)
+        pij["optimal_clustering"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].max(axis=1)
 
         return pij
 
-    def fit_beta4(
-        self,
-        pij: pd.DataFrame,
-        **kwargs
-    ) -> Beta4:
+    def fit_beta4(self, pij: pd.DataFrame, **kwargs) -> Beta4:
         """Fit the Beta4 model.
 
         Parameters:
@@ -139,9 +118,7 @@ class CLAIRE:
             Fitted Beta4 model.
         """
         self.pij = pij
-        self.b4 = Beta4(
-            **kwargs
-        )
+        self.b4 = Beta4(**kwargs)
         self.b4.fit(self.pij.values)
         return self.b4
 
@@ -150,7 +127,7 @@ class CLAIRE:
         data_results: pd.DataFrame,
         models: Beta4,
         X_dataset_i: Any,
-        Y_dataset_i: Any
+        Y_dataset_i: Any,
     ) -> pd.DataFrame:
         """Calculate the evaluation metrics.
 
@@ -165,14 +142,11 @@ class CLAIRE:
             Metrics DataFrame.
         """
 
-        data_metrics = pd.DataFrame(
-            index = self.pij.columns,
-            columns = [i[0] for i in self.metrics]
-        )
-        
+        data_metrics = pd.DataFrame(index=self.pij.columns, columns=[i[0] for i in self.metrics])
+
         data_metrics.insert(0, "abilities", models.abilities)
         data_metrics = data_metrics.T
-        
+
         params_metric = {
             "mood1": {"labels_true": Y_dataset_i},
             "mood2": {"X": X_dataset_i},
@@ -182,27 +156,19 @@ class CLAIRE:
             for metric in self.metrics:
                 if model not in ["optimal_clustering", "average_model"]:
                     if metric[-1]:
-                        _params = params_metric["mood1"] | {
-                            "labels_pred": data_results[model]
-                        }
+                        _params = params_metric["mood1"] | {"labels_pred": data_results[model]}
                     else:
-                        _params = params_metric["mood2"] | {
-                            "labels": data_results[model]
-                        }
+                        _params = params_metric["mood2"] | {"labels": data_results[model]}
                     try:
                         data_metrics.loc[metric[0], model] = metric[1](**_params)
-                    except:
+                    except:  # noqa: E722
                         data_metrics.loc[metric[0], model] = np.nan
                 else:
                     data_metrics.loc[metric[0], model] = np.nan
         data_metrics = data_metrics.T
         return data_metrics
 
-    def save_results(
-        self,
-        _name: str,
-        data_contents: List[Tuple[str, Any]]
-    ) -> None:
+    def save_results(self, _name: str, data_contents: List[Tuple[str, Any]]) -> None:
         """Save the results to files.
 
         Parameters:
@@ -211,14 +177,8 @@ class CLAIRE:
             data_contents: List of data to be saved.
         """
         path_root = self.path_root  # Changed variable name to 'path_root'
-        dir_save_dataset_i = (
-            path_root
-            / self.dir_result 
-            / Path(_name)
-        )
-        url_save_dataset_i = [
-            dir_save_dataset_i / Path(i[0]) for i in data_contents
-        ]
+        dir_save_dataset_i = path_root / self.dir_result / Path(_name)
+        url_save_dataset_i = [dir_save_dataset_i / Path(i[0]) for i in data_contents]
         for url in url_save_dataset_i:
             if not os.path.exists(url):
                 os.makedirs(url)
@@ -226,5 +186,5 @@ class CLAIRE:
         for content, url in zip(data_contents, url_save_dataset_i):
             for data_save in content[1:]:
                 if data_save is not None:
-                    #print(url / data_save[0])
-                    data_save[1].to_csv( url / data_save[0] )
+                    # print(url / data_save[0])
+                    data_save[1].to_csv(url / data_save[0])

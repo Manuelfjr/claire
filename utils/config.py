@@ -1,12 +1,11 @@
 # basics
 import sys
 from pathlib import Path
-PROJECT_DIR = Path.cwd()#.parent
+
+PROJECT_DIR = Path.cwd()  # .parent
 sys.path.append(str(PROJECT_DIR))
 import re
 import numpy as np
-import pandas as pd
-
 
 # models
 from sklearn.cluster import (
@@ -32,25 +31,16 @@ from sklearn.metrics import (
 from utils.reader import read_file_yaml
 
 ##### parameters #################################
-path_root = (
-    PROJECT_DIR
-    / "data"
-)
-path_conf = (
-    PROJECT_DIR
-    / "conf"
-)
-file_path_parameters = (
-    path_conf 
-    / "parameters.yml"
-)
+path_root = PROJECT_DIR / "data"
+path_conf = PROJECT_DIR / "conf"
+file_path_parameters = path_conf / "parameters.yml"
 
 ##### read       ##################################
 parameters = read_file_yaml(file_path_parameters)
 general_params = [
     parameters["general"]["min"],
     parameters["general"]["max"],
-    parameters["general"]["step"]
+    parameters["general"]["step"],
 ]
 model_params = parameters["models"]
 
@@ -69,45 +59,26 @@ _default_models = {
 }
 
 _default_params = {
-    "kmeans": [
-        {
-            "n_clusters": i
-        } for i in range(
-            *general_params
-        )
-    ],
+    "kmeans": [{"n_clusters": i} for i in range(*general_params)],
     "dbscan": [
         {
             "eps": round(i, model_params["dbscan"]["eps"]["max"]),
-            "min_samples": model_params["dbscan"]["min_samples"]
-        } for i in np.arange(
-            *list(model_params["dbscan"]["eps"].values())
-        )
+            "min_samples": model_params["dbscan"]["min_samples"],
+        }
+        for i in np.arange(*list(model_params["dbscan"]["eps"].values()))
     ],
-    "spectral_clustering": [
-        {
-            "n_clusters": i
-        }|model_params["spectral_clustering"]
-        for i in range(
-            *general_params
-        )
-    ],
+    "spectral_clustering": [{"n_clusters": i} | model_params["spectral_clustering"] for i in range(*general_params)],
     "mean_shift": model_params["mean_shift"],
-    "kernel_kmeans": [
-        {"n_clusters": i}|model_params["kernel_kmeans"]
-        for i in np.arange(
-            *general_params
-        )
-    ],
-    "optics": model_params["optics"]
+    "kernel_kmeans": [{"n_clusters": i} | model_params["kernel_kmeans"] for i in np.arange(*general_params)],
+    "optics": model_params["optics"],
 }
 
 models, params = {}, {}
 for i_name in parameters["models_fit"]:
-    if (i_name in _default_models.keys())or(i_name in _default_params.keys()):
+    if (i_name in _default_models.keys()) or (i_name in _default_params.keys()):
         models[i_name] = _default_models[i_name]
         params[i_name] = _default_params[i_name]
-        
+
 metrics = [
     ("v_measure", v_measure_score, True),
     ("mutual_info", mutual_info_score, True),

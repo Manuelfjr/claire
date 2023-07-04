@@ -46,12 +46,9 @@ if parameters["include_random_model"]:
 else:
     number_random_models = 1
 path_result = Path(config.dir_result)
-try:
-    del config.params["optics"]
-except:
-    t = -1
 
 step_pause = 0
+del config.params["optics"]
 for k_random in tqdm(range(number_random_models)):
 #     if k_random > 0:
 #         break
@@ -67,10 +64,11 @@ for k_random in tqdm(range(number_random_models)):
             config
             .params|{
                 "optics": [
-                   config._optics_params[i]
+                    config._optics_params[i]
                 ]
             }
         )
+
         claire = CLAIRE(
             models_name = np.unique(config.models_name_dataset[i]),
             models = config.models,
@@ -81,14 +79,16 @@ for k_random in tqdm(range(number_random_models)):
             dir_result = path_result,
             path_root = PROJECT_DIR,
         )
-
+        
         if len(np.unique(_Y[i])) == 1:
-            n_clusters = np.random.randint(0, 10)
+            n_clusters = np.random.randint(1, 10)
         else:
             n_clusters = len(np.unique(_Y[i]))
         
         which_k_dataset = "dataset: [ {} ]".format(i)
+        
         print(title_part_n1 + which_k_dataset + title_part_n3)
+        
         #  processing
         combination_models = claire.transform()
         claire.fit_combination_models(combination_models, _X[i])

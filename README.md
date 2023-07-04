@@ -7,7 +7,11 @@
 Run:
 
 ```bash
-sudo apt install poetry
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+```bash
+pip install poetry
 ```
 
 # Git clone

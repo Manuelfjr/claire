@@ -46,9 +46,9 @@ if parameters["include_random_model"]:
 else:
     number_random_models = 1
 path_result = Path(config.dir_result)
-step_pause = 24
 
-for k_random in tqdm(range(step_pause, 26)):#number_random_models)):
+step_pause = 0
+for k_random in tqdm(range(step_pause, number_random_models)):
     #     if k_random > 0:
     #         break
     which_k_random = "n_random_model: [ {} ]".format(k_random + 1)

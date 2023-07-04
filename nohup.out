@@ -1,81 +1,0 @@
-The currently activated Python version 3.8.10 is not supported by the project (>=3.10, <3.12).
-Trying to find and use a compatible version.
-Using python3.10 (3.10.11)
-2023-07-03 14:45:11.131127: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2023-07-03 14:45:11.585434: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
-
-----------------------------------------------------
-PROJECT_DIR: [ /home/manuel/aaai-claire-clustering ]
-----------------------------------------------------
-
-  0%|          | 0/10 [00:00<?, ?it/s]
-
-----------------------------------------------------
-n_random_model: [ 26 ]
-----------------------------------------------------
-
-
-  0%|          | 0/6 [00:00<?, ?it/s][A
-
-----------------------------------------------------
-dataset: [ aniso ]
-----------------------------------------------------
-
-
-
-0it [00:00, ?it/s][A[A
-
-1it [00:00,  1.86it/s][A[A
-
-2it [00:01,  1.84it/s][A[A
-
-3it [00:01,  1.85it/s][A[A
-
-4it [00:02,  1.85it/s][A[A
-
-5it [00:02,  1.85it/s][A[A
-
-6it [00:03,  1.85it/s][A[A
-
-7it [00:03,  1.85it/s][A[A
-
-8it [00:04,  1.85it/s][A[A
-
-9it [00:04,  1.85it/s][A[A
-
-10it [00:05,  1.85it/s][A[A
-
-11it [00:05,  1.85it/s][A[A
-
-12it [00:06,  1.85it/s][A[A
-
-13it [00:07,  1.86it/s][A[A
-
-14it [00:07,  1.86it/s][A[A
-
-15it [00:08,  1.86it/s][A[A15it [00:08,  1.74it/s]
-  0%|          | 0/6 [00:38<?, ?it/s]
-  0%|          | 0/10 [00:38<?, ?it/s]
-Traceback (most recent call last):
-  File "/home/manuel/aaai-claire-clustering/pipeline/run.py", line 85, in <module>
-    pij = claire.generate_pij_matrix(data_results, k_random + 1, n_clusters)
-  File "/home/manuel/aaai-claire-clustering/src/claire.py", line 102, in generate_pij_matrix
-    pij = tp.generate_pij_matrix(data_results)
-  File "/home/manuel/aaai-claire-clustering/utils/processing/transform.py", line 30, in generate_pij_matrix
-    self.transformed_matrix.iloc[i_line, j_line] = pd.DataFrame(
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/frame.py", line 782, in __init__
-    arrays, columns, index = nested_data_to_arrays(
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 498, in nested_data_to_arrays
-    arrays, columns = to_arrays(data, columns, dtype=dtype)
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 840, in to_arrays
-    content, columns = _finalize_columns_and_data(arr, columns, dtype)
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 940, in _finalize_columns_and_data
-    contents = convert_object_array(contents, dtype=dtype)
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 1067, in convert_object_array
-    arrays = [convert(arr) for arr in content]
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 1067, in <listcomp>
-    arrays = [convert(arr) for arr in content]
-  File "/home/manuel/.cache/pypoetry/virtualenvs/aaai-claire-clustering-4nOktnSz-py3.10/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 1025, in convert
-    arr = lib.maybe_convert_objects(
-KeyboardInterrupt

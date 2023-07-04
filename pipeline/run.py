@@ -46,9 +46,9 @@ if parameters["include_random_model"]:
 else:
     number_random_models = 1
 path_result = Path(config.dir_result)
-step_pause = 25
+step_pause = 24
 
-for k_random in tqdm(range(step_pause, number_random_models)):
+for k_random in tqdm(range(step_pause, 26)):#number_random_models)):
     #     if k_random > 0:
     #         break
     which_k_random = "n_random_model: [ {} ]".format(k_random + 1)
@@ -71,7 +71,7 @@ for k_random in tqdm(range(step_pause, number_random_models)):
     )
     for i in tqdm(config.file_names):
         if len(np.unique(_Y[i])) == 1:
-            n_clusters = np.random.randint(0, 10)
+            n_clusters = np.random.randint(1, 10)
         else:
             n_clusters = len(np.unique(_Y[i]))
 

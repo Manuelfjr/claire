@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-PROJECT_DIR = Path.cwd().parent
+PROJECT_DIR = Path.cwd()#.parent
 sys.path.append(str(PROJECT_DIR))
 import re
 
@@ -53,6 +53,15 @@ _default_models = {
     "optics": OPTICS,
 }
 
+_optics_params = {
+     'noisy_circles': {'min_samples': 7, 'xi': 0.08, 'min_cluster_size': 0.1},
+     'noisy_moons': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.1},
+     'varied': {'min_samples': 7, 'xi': 0.01, 'min_cluster_size': 0.2},
+     'aniso': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
+     'blobs': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
+     'no_structure': {'min_samples': 7, 'xi': 0.05, 'min_cluster_size': 0.1}
+}
+
 _default_params = {
     "kmeans": [{"n_clusters": i} for i in range(*general_params)],
     "dbscan": [
@@ -65,7 +74,14 @@ _default_params = {
     "spectral_clustering": [{"n_clusters": i} | model_params["spectral_clustering"] for i in range(*general_params)],
     "mean_shift": model_params["mean_shift"],
     "kernel_kmeans": [{"n_clusters": i} | model_params["kernel_kmeans"] for i in np.arange(*general_params)],
-    "optics": model_params["optics"],
+    "optics": {
+     'noisy_circles': {'min_samples': 7, 'xi': 0.08, 'min_cluster_size': 0.1},
+     'noisy_moons': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.1},
+     'varied': {'min_samples': 7, 'xi': 0.01, 'min_cluster_size': 0.2},
+     'aniso': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
+     'blobs': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
+     'no_structure': {'min_samples': 7, 'xi': 0.05, 'min_cluster_size': 0.1}
+}# model_params["optics"],
 }
 
 models, params = {}, {}
@@ -83,12 +99,22 @@ metrics = [
     ("silhouette", silhouette_score, False),
 ]
 
-models_name = []
-for name, model in params.items():
-    for name_to_process in model:
-        text = str(list(name_to_process.items()))
-        text = re.sub(",+", "_", text)
-        text = text.replace(".", "_")
-        text = re.sub("[^0-9a-zA-Z_-]", "", text)
-        text = str(name + "_" + text).replace(" ", "_")
-        models_name.append(text)
+models_name_dataset = {}
+for dataset_name in file_names:
+    models_name_dataset[dataset_name] = []
+    for name, model in params.items():
+        for name_to_process in model:
+            if name != "optics":
+                text = str(list(name_to_process.items()))
+                text = re.sub(",+", "_", text)
+                text = text.replace(".", "_")
+                text = re.sub("[^0-9a-zA-Z_-]", "", text)
+                text = str(name + "_" + text).replace(" ", "_")
+                models_name_dataset[dataset_name].append(text)
+            else:
+                text = str(list(model[dataset_name].items()))
+                text = re.sub(",+", "_", text)
+                text = text.replace(".", "_")
+                text = re.sub("[^0-9a-zA-Z_-]", "", text)
+                text = str(name + "_" + text).replace(" ", "_")
+                models_name_dataset[dataset_name].append(text)

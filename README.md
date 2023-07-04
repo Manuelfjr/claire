@@ -1,8 +1,8 @@
-# aaai-claire-clustering
+## aaai-claire-clustering
 
 *CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
 
-# Poetry installation
+## Poetry installation
 
 Run:
 
@@ -14,7 +14,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 pip install poetry
 ```
 
-# Git clone
+## Git clone
 
 Clone this repository:
 
@@ -28,7 +28,7 @@ next:
 cd aaai-claire-clustering/
 ```
 
-# Install project dependencies
+## Install project dependencies
 
 Run the code bellow for install all dependecies of the project.
 
@@ -36,8 +36,12 @@ Run the code bellow for install all dependecies of the project.
 poetry install
 ```
 
-# Run the pipeline
+## Run the pipeline
 
 ```bash
 poetry run python3 pipeline/run.py
 ```
+
+## Expected plot of simulation's result
+
+<img src="outputs/simulation_dataset.png" alt="sim" style="object-position: 0 -180px; object-fit: cover;">

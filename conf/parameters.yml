@@ -1,5 +1,9 @@
 include_random_model: True
 
+outputs: 
+    simulation_random:
+        filepath: simulation_dataset
+
 beta_params:
     learning_rate: 0.1
     epochs: 10000

@@ -1,6 +1,6 @@
 include_random_model: True
 
-outputs: 
+outputs:
     simulation_random:
         filepath: simulation_dataset
         data_filepath: "{}"

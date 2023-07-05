@@ -10,7 +10,7 @@ from tqdm import tqdm
 PROJECT_DIR = Path.cwd()
 sys.path.append(str(PROJECT_DIR))
 warnings.filterwarnings("ignore")
-
+print(PROJECT_DIR)
 from src.claire import CLAIRE
 from utils import config
 from utils.reader import read_file_yaml
@@ -42,54 +42,55 @@ for i in data_all.keys():
 
 #### select if it is random include simulation ####
 if parameters["include_random_model"]:
-    number_random_models = len(config.models_name)
+    number_random_models = len(np.unique(list(config.models_name_dataset.values())[0]))
 else:
     number_random_models = 1
 path_result = Path(config.dir_result)
 
-step_pause = 0
+step_pause = 27
+del config.params["optics"]
 for k_random in tqdm(range(step_pause, number_random_models)):
     #     if k_random > 0:
     #         break
     which_k_random = "n_random_model: [ {} ]".format(k_random + 1)
-    print()
     print(title_part_n1 + which_k_random + title_part_n3)
     if number_random_models != 1:
         path_result = path_result / Path(f"random_n{k_random+1}")
         if not os.path.exists(PROJECT_DIR / path_result):
             os.makedirs(path_result)
 
-    claire = CLAIRE(
-        models_name=config.models_name,
-        models=config.models,
-        params=config.params,
-        _X=_X,
-        _Y=_Y,
-        metrics=config.metrics,
-        dir_result=path_result,
-        path_root=PROJECT_DIR,
-    )
     for i in tqdm(config.file_names):
+        models_params = config.params | {"optics": [config._optics_params[i]]}
+
+        claire = CLAIRE(
+            models_name=np.unique(config.models_name_dataset[i]),
+            models=config.models,
+            params=models_params,
+            _X=_X,
+            _Y=_Y,
+            metrics=config.metrics,
+            dir_result=path_result,
+            path_root=PROJECT_DIR,
+        )
+
         if len(np.unique(_Y[i])) == 1:
             n_clusters = np.random.randint(1, 10)
         else:
             n_clusters = len(np.unique(_Y[i]))
 
         which_k_dataset = "dataset: [ {} ]".format(i)
-        print()
+
         print(title_part_n1 + which_k_dataset + title_part_n3)
+
         #  processing
         combination_models = claire.transform()
         claire.fit_combination_models(combination_models, _X[i])
+
         data_results = claire.generate_results(combination_models)
         pij = claire.generate_pij_matrix(data_results, k_random + 1, n_clusters)
 
         # set beta4 params
-        beta_params = parameters["beta_params"] | {
-            "pij": pij,
-            "n_respondents": pij.shape[1],
-            "n_items": pij.shape[0],
-        }
+        beta_params = parameters["beta_params"] | {"pij": pij, "n_respondents": pij.shape[1], "n_items": pij.shape[0]}
 
         # fit
         beta4_model = claire.fit_beta4(**beta_params)

@@ -54,12 +54,12 @@ _default_models = {
 }
 
 _optics_params = {
-     'noisy_circles': {'min_samples': 7, 'xi': 0.08, 'min_cluster_size': 0.1},
-     'noisy_moons': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.1},
-     'varied': {'min_samples': 7, 'xi': 0.01, 'min_cluster_size': 0.2},
-     'aniso': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
-     'blobs': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
-     'no_structure': {'min_samples': 7, 'xi': 0.05, 'min_cluster_size': 0.1}
+    "noisy_circles": {"min_samples": 7, "xi": 0.08, "min_cluster_size": 0.1},
+    "noisy_moons": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.1},
+    "varied": {"min_samples": 7, "xi": 0.01, "min_cluster_size": 0.2},
+    "aniso": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
+    "blobs": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
+    "no_structure": {"min_samples": 7, "xi": 0.05, "min_cluster_size": 0.1},
 }
 
 _default_params = {
@@ -75,13 +75,13 @@ _default_params = {
     "mean_shift": model_params["mean_shift"],
     "kernel_kmeans": [{"n_clusters": i} | model_params["kernel_kmeans"] for i in np.arange(*general_params)],
     "optics": {
-     'noisy_circles': {'min_samples': 7, 'xi': 0.08, 'min_cluster_size': 0.1},
-     'noisy_moons': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.1},
-     'varied': {'min_samples': 7, 'xi': 0.01, 'min_cluster_size': 0.2},
-     'aniso': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
-     'blobs': {'min_samples': 7, 'xi': 0.1, 'min_cluster_size': 0.2},
-     'no_structure': {'min_samples': 7, 'xi': 0.05, 'min_cluster_size': 0.1}
-}# model_params["optics"],
+        "noisy_circles": {"min_samples": 7, "xi": 0.08, "min_cluster_size": 0.1},
+        "noisy_moons": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.1},
+        "varied": {"min_samples": 7, "xi": 0.01, "min_cluster_size": 0.2},
+        "aniso": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
+        "blobs": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
+        "no_structure": {"min_samples": 7, "xi": 0.05, "min_cluster_size": 0.1},
+    },  # model_params["optics"],
 }
 
 models, params = {}, {}

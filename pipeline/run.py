@@ -47,9 +47,10 @@ else:
     number_random_models = 1
 path_result = Path(config.dir_result)
 
-step_pause = 0
+init_generate = 0
+stop_generate = 17  # number_random_models
 del config.params["optics"]
-for k_random in tqdm(range(step_pause, number_random_models)):
+for k_random in tqdm(range(init_generate, stop_generate)):
     #     if k_random > 0:
     #         break
     which_k_random = "n_random_model: [ {} ]".format(k_random + 1)

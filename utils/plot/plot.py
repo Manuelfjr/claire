@@ -57,4 +57,4 @@ class GeneratePlots:
 
                 fig.colorbar(points, ax=axes[ax[0], ax[1]])
 
-        return axes
+        return fig, axes

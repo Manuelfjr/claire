@@ -45,3 +45,8 @@ poetry run python3 pipeline/run.py
 ## Expected plot of simulation's result
 
 <img src="outputs/simulation_dataset.png" alt="sim" style="object-position: 0 -180px; object-fit: cover;">
+
+<div class="text-right hide-lg hide-md hide-sm hide-xs flex-self-end ">
+
+
+

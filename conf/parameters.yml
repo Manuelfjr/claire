@@ -1,5 +1,7 @@
 include_random_model: True
 
+correlation_method: spearman
+
 outputs:
     simulation_random:
         filepath: simulation_dataset
@@ -35,6 +37,7 @@ general:
     max: &max 9
     step: 1
     random_state: &random_state 0
+    
 models:
     kmeans:
     dbscan:

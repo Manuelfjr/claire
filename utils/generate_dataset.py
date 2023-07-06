@@ -44,7 +44,7 @@ parser.add_argument(
     type=int,
     nargs="?",
     default=170,
-    help=f"set random_state for data generation (default: 170)",
+    help="set random_state for data generation (default: 170)",
 )
 args = parser.parse_args()
 

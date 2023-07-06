@@ -11,6 +11,7 @@ __pycache__/
 *0[3-9]*.ipynb
 *.log
 nohup.out
+*.sh
 
 # Distribution / packaging
 .Python

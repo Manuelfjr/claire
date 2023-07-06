@@ -37,7 +37,7 @@ general:
     max: &max 9
     step: 1
     random_state: &random_state 0
-    
+
 models:
     kmeans:
     dbscan:

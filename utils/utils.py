@@ -1,7 +1,5 @@
 def set_params(content: dict, params: dict) -> dict:
-    _ax = [
-        [(idxx, 0), (idxx, 1)] for idxx, i in enumerate(range(len(content.keys())))
-    ]
+    _ax = [[(idxx, 0), (idxx, 1)] for idxx, i in enumerate(range(len(content.keys())))]
     _base_list = {
         i: {
             "x": content[i].drop("labels", axis=1).values[:, 0],
@@ -14,7 +12,7 @@ def set_params(content: dict, params: dict) -> dict:
     _plt_parameters = {
         i: [
             [
-                "difficulties", # "difficulties" or "dificuldades"
+                "difficulties",  # "difficulties" or "dificuldades"
                 ax[0],
                 _base_list[i]
                 | {
@@ -24,7 +22,7 @@ def set_params(content: dict, params: dict) -> dict:
                 },
             ],
             [
-                "discrimination", # "discrimination" or "discriminações"
+                "discrimination",  # "discrimination" or "discriminações"
                 ax[1],
                 _base_list[i]
                 | {

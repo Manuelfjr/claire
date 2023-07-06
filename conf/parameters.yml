@@ -1,10 +1,7 @@
 include_random_model: True
 
-<<<<<<< HEAD
 correlation_method: spearman
 
-=======
->>>>>>> 8feb9011eb28288a77d7ae755934e7432902a1fc
 outputs:
     simulation_random:
         filepath: simulation_dataset

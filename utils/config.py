@@ -2,11 +2,7 @@
 import sys
 from pathlib import Path
 
-<<<<<<< HEAD
 PROJECT_DIR = Path.cwd().parent
-=======
-PROJECT_DIR = Path.cwd()  # .parent
->>>>>>> 8feb9011eb28288a77d7ae755934e7432902a1fc
 sys.path.append(str(PROJECT_DIR))
 import re
 

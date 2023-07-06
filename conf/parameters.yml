@@ -8,17 +8,26 @@ outputs:
         data_filepath: "{}"
 
 generation_params:
-    default_base:
-        quantile: 0.3
-        eps: 0.3
-        damping: 0.9
-        preference: -200
-        n_neighbors: 3
-        n_clusters: 3
-        min_samples: 7
-        xi: 0.05
-        min_cluster_size: 0.1
-    
+    aniso:
+        rotation:
+            - [0.6, -0.6]
+            - [-0.4, 0.8]
+    noisy_circles:
+        factor: 0.5
+        noise: &noisy 0.05
+    noisy_moons:
+        noise: *noisy
+    blobs:
+        random_state: 8
+    varied:
+        cluster_std:
+            - 1.0
+            - 2.5
+            - 0.5
+    no_structure:
+        - 1000
+        - 2
+
 beta_params:
     learning_rate: 0.1
     epochs: 10000
@@ -49,7 +58,7 @@ general:
     max: &max 9
     step: 1
     random_state: &random_state 0
-    
+
 models:
     kmeans:
     dbscan:

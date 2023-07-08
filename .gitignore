@@ -12,6 +12,7 @@ __pycache__/
 *.log
 nohup.out
 *.sh
+99*
 
 # Distribution / packaging
 .Python

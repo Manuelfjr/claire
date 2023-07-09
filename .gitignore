@@ -13,6 +13,7 @@ __pycache__/
 nohup.out
 *.sh
 99*
+test/
 
 # Distribution / packaging
 .Python

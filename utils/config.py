@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-PROJECT_DIR = Path.cwd().parent
+PROJECT_DIR = Path.cwd() # .parent
 sys.path.append(str(PROJECT_DIR))
 import re
 
@@ -60,6 +60,11 @@ _optics_params = {
     "aniso": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
     "blobs": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
     "no_structure": {"min_samples": 7, "xi": 0.05, "min_cluster_size": 0.1},
+    "iris": {},
+    "wine": {},
+    "diabetes": {},
+    "breast_cancer": {},
+    "digits": {}
 }
 
 _default_params = {
@@ -81,6 +86,11 @@ _default_params = {
         "aniso": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
         "blobs": {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2},
         "no_structure": {"min_samples": 7, "xi": 0.05, "min_cluster_size": 0.1},
+        "iris": {},
+        "wine": {},
+        "diabetes": {},
+        "breast_cancer": {},
+        "digits": {}
     },  # model_params["optics"],
 }
 

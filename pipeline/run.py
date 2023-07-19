@@ -47,8 +47,9 @@ else:
     number_random_models = 1
 path_result = Path(config.dir_result)
 
-init_generate = 24
+init_generate = 0
 stop_generate = number_random_models
+
 del config.params["optics"]
 for k_random in tqdm(range(init_generate, stop_generate)):
     #     if k_random > 0:

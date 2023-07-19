@@ -14,6 +14,7 @@ from sklearn.datasets import *
 from reader import read_file_yaml
 from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 import config
 
 # basics
@@ -84,23 +85,28 @@ varied = datasets.make_blobs(
 ####################### real data
 # iris
 _iris = load_iris()
-iris = _iris["data"], _iris["target"]
+_pca_iris = PCA(2).fit_transform(_iris["data"])
+iris = _pca_iris, _iris["target"]
 
 # diabetes
 _diabetes = load_diabetes()
-diabetes = _diabetes["data"], _diabetes["target"]
+_pca_diabetes = PCA(2).fit_transform(_diabetes["data"])
+diabetes = _pca_diabetes, _diabetes["target"]
 
 # wine
 _wine = load_wine()
-wine = _wine["data"], _wine["target"]
+_pca_wine = PCA(2).fit_transform(_wine["data"])
+wine = _pca_wine, _wine["target"]
 
 # digits
 _digits = load_digits()
-digits = _digits["data"], _digits["target"]
+_pca_digits = PCA(2).fit_transform(_digits["data"])
+digits = _pca_digits, _digits["target"]
 
 # cancer
 _cancer = load_breast_cancer()
-cancer = _cancer["data"], _cancer["target"]
+_pca_cancer = PCA(2).fit_transform(_cancer["data"])
+cancer = _pca_cancer, _cancer["target"]
 #######################
 
 # organize content

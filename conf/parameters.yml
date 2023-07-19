@@ -41,16 +41,17 @@ beta_params:
     set_priors: True
 
 datasets:
-#     - iris
-#     - breast_cancer
-#     - diabetes
+    - iris
+    - wine
+    - diabetes
+    - breast_cancer
 #     - digits
-    - aniso
-    - blobs
-    - varied
-    - noisy_moons
-    - noisy_circles
-    - no_structure
+#     - aniso
+#     - blobs
+#     - varied
+#     - noisy_moons
+#     - noisy_circles
+#     - no_structure
 
 models_fit:
     - kmeans
@@ -58,7 +59,7 @@ models_fit:
     - kernel_kmeans
     - spectral_clustering
     - mean_shift
-    #- optics
+    - optics
 
 general:
     min: &min 1

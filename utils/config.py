@@ -43,7 +43,7 @@ model_params = parameters["models"]
 file_names = parameters["datasets"]
 
 ##### modelling objects ###########################
-dir_result = "results"
+dir_result = parameters["results"]["filepath"]# "results"
 _default_models = {
     "kmeans": KMeans,
     "dbscan": DBSCAN,

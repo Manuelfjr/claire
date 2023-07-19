@@ -9,11 +9,12 @@ sys.path.append(str(PROJECT_DIR))
 
 import numpy as np
 import pandas as pd
-
+from sklearn.datasets import *
 # utils
 from reader import read_file_yaml
 from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
+import config
 
 # basics
 
@@ -80,6 +81,27 @@ aniso = (X_aniso, y)
 varied = datasets.make_blobs(
     n_samples=args.integers, random_state=args.random_state, **_params_dataset["varied"]["params"]
 )
+####################### real data
+# iris
+_iris = load_iris()
+iris = _iris["data"], _iris["target"]
+
+# diabetes
+_diabetes = load_diabetes()
+diabetes = _diabetes["data"], _diabetes["target"]
+
+# wine
+_wine = load_wine()
+wine = _wine["data"], _wine["target"]
+
+# digits
+_digits = load_digits()
+digits = _digits["data"], _digits["target"]
+
+# cancer
+_cancer = load_breast_cancer()
+cancer = _cancer["data"], _cancer["target"]
+#######################
 
 # organize content
 content = {
@@ -89,13 +111,22 @@ content = {
     "blobs": blobs,
     "varied": varied,
     "no_structure": no_structure,
+    "iris": iris,
+    "diabetes": diabetes,
+    "wine": wine,
+    "digits": digits,
+    "breast_cancer": cancer
+}
+
+content = {
+    i: content[i] for i in config.file_names
 }
 
 _datasets = {
     i_name: {
         "content": content[i_name],
     }
-    for i_name, i_content in parameters["generation_params"].items()
+    for i_name in config.file_names # parameters["generation_params"].items()
 }
 
 dataset_std = []

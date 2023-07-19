@@ -2,6 +2,9 @@ include_random_model: True
 
 correlation_method: spearman
 
+results:
+    filepath: results
+    
 outputs:
     simulation_random:
         filepath: simulation_dataset
@@ -30,14 +33,18 @@ generation_params:
 
 beta_params:
     learning_rate: 0.1
-    epochs: 10000
-    n_inits: 1000
+    epochs: 100 # 10000
+    n_inits: 10 # 1000
     # n_workers: -1,
     random_seed: 1
     tol: 1.0e-8
     set_priors: True
 
 datasets:
+#     - iris
+#     - breast_cancer
+#     - diabetes
+#     - digits
     - aniso
     - blobs
     - varied
@@ -51,7 +58,7 @@ models_fit:
     - kernel_kmeans
     - spectral_clustering
     - mean_shift
-    - optics
+    #- optics
 
 general:
     min: &min 1

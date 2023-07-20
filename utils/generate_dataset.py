@@ -85,28 +85,33 @@ varied = datasets.make_blobs(
 ####################### real data
 # iris
 _iris = load_iris()
-_pca_iris = PCA(2).fit_transform(_iris["data"])
-iris = _pca_iris, _iris["target"]
+#_pca_iris = PCA(2).fit_transform(_iris["data"])
+#iris = _pca_iris, _iris["target"]
+iris = _iris["data"], _iris["target"]
 
 # diabetes
 _diabetes = load_diabetes()
-_pca_diabetes = PCA(2).fit_transform(_diabetes["data"])
-diabetes = _pca_diabetes, _diabetes["target"]
+#_pca_diabetes = PCA(2).fit_transform(_diabetes["data"])
+#diabetes = _pca_diabetes, _diabetes["target"]
+diabetes = _diabetes["data"], _diabetes["target"]
 
 # wine
 _wine = load_wine()
-_pca_wine = PCA(2).fit_transform(_wine["data"])
-wine = _pca_wine, _wine["target"]
+#_pca_wine = PCA(2).fit_transform(_wine["data"])
+#wine = _pca_wine, _wine["target"]
+wine = _wine["data"], _wine["target"]
 
 # digits
 _digits = load_digits()
-_pca_digits = PCA(2).fit_transform(_digits["data"])
-digits = _pca_digits, _digits["target"]
+#_pca_digits = PCA(2).fit_transform(_digits["data"])
+#digits = _pca_digits, _digits["target"]
+digits = _digits["data"], _digits["target"]
 
 # cancer
 _cancer = load_breast_cancer()
-_pca_cancer = PCA(2).fit_transform(_cancer["data"])
-cancer = _pca_cancer, _cancer["target"]
+#_pca_cancer = PCA(2).fit_transform(_cancer["data"])
+#cancer = _pca_cancer, _cancer["target"]
+cancer = _cancer["data"], _cancer["target"]
 #######################
 
 # organize content

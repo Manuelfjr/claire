@@ -8,7 +8,7 @@ correlation_method: spearman
 
 results:
     filepath: results
-    
+
 outputs:
     simulation_random:
         filepath: simulation_dataset

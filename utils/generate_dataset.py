@@ -111,7 +111,7 @@ digits = _digits["data"], _digits["target"]
 _cancer = load_breast_cancer()
 #_pca_cancer = PCA(2).fit_transform(_cancer["data"])
 #cancer = _pca_cancer, _cancer["target"]
-cancer = _cancer["data"], _cancer["target"]# iris
+cancer = _cancer["data"], _cancer["target"]
 #######################
 
 # organize content

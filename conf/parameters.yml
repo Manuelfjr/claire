@@ -1,5 +1,9 @@
 include_random_model: True
 
+experiments:
+    rp_init: 35
+    rp_init: max
+
 correlation_method: spearman
 
 results:

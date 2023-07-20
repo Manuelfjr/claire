@@ -28,10 +28,13 @@ path_root = PROJECT_DIR / "data"
 path_conf = PROJECT_DIR / "conf"
 file_path_parameters = path_conf / "parameters.yml"
 path_data = [path_root / i for i in config.file_names]
+parameters = read_file_yaml(file_path_parameters)
+ext_type = params["outputs"]["extension_type"]
+ext_local_img = params["outputs"]["extension_local_img"]
+ext_best_img = params["outputs"]["extension_best_img"]
 
 ##### read       ##################################
-parameters = read_file_yaml(file_path_parameters)
-data_all = {i: pd.read_csv(path_data[idx] / Path(i + ".csv")) for idx, i in enumerate(config.file_names)}
+data_all = {i: pd.read_csv(path_data[idx] / Path(i + ext_type)) for idx, i in enumerate(config.file_names)}
 
 #### running     ##################################
 _X, _Y = {}, {}
@@ -47,8 +50,12 @@ else:
     number_random_models = 1
 path_result = Path(config.dir_result)
 
-init_generate = 0
-stop_generate = number_random_models
+init_generate = params["experiments"]["rp_init"]
+
+if params["experiments"]["rp_init"] == "max":
+    stop_generate = number_random_models
+else:
+    stop_generate = params["experiments"]["rp_init"]
 
 del config.params["optics"]
 for k_random in tqdm(range(init_generate, stop_generate)):
@@ -105,24 +112,24 @@ for k_random in tqdm(range(init_generate, stop_generate)):
             (
                 "metrics",
                 (
-                    "metrics.csv",
+                    "metrics"+ext_type,
                     data_metrics.sort_values("abilities", ascending=False),
                 ),
                 (None),
             ),
             (
                 "pij",
-                ("pij_true.csv", pij),
-                ("pij_pred.csv", pd.DataFrame(claire.b4.pij, columns=pij.columns)),
+                ("pij_true"+ext_type, pij),
+                ("pij_pred"+ext_type, pd.DataFrame(claire.b4.pij, columns=pij.columns)),
             ),
             (
                 "params",
                 (
-                    "abilities.csv",
+                    "abilities"+ext_type,
                     pd.DataFrame(claire.b4.abilities, index=pij.columns, columns=["abilities"]),
                 ),
                 (
-                    "diff_disc.csv",
+                    "diff_disc"+ext_type,
                     pd.DataFrame(
                         {
                             "difficulty": claire.b4.difficulties,
@@ -131,7 +138,7 @@ for k_random in tqdm(range(init_generate, stop_generate)):
                     ),
                 ),
             ),
-            ("labels", ("labels.csv", data_results), (None)),
+            ("labels", ("labels"+ext_type, data_results), (None)),
         ]
 
         # save

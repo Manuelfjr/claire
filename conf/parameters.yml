@@ -1,14 +1,14 @@
 include_random_model: True
 
 experiments:
-    rp_init: 35
-    rp_final: 37
+    rp_init: 51
+    rp_final: 70
 
 correlation_method: spearman
 
 results:
     filepath: results
-    
+
 outputs:
     simulation_random:
         filepath: simulation_dataset

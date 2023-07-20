@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-PROJECT_DIR = Path.cwd() # .parent
+PROJECT_DIR = Path.cwd()  # .parent
 sys.path.append(str(PROJECT_DIR))
 import re
 
@@ -43,7 +43,7 @@ model_params = parameters["models"]
 file_names = parameters["datasets"]
 
 ##### modelling objects ###########################
-dir_result = parameters["results"]["filepath"]# "results"
+dir_result = parameters["results"]["filepath"]  # "results"
 _default_models = {
     "kmeans": KMeans,
     "dbscan": DBSCAN,
@@ -64,7 +64,7 @@ _optics_params = {
     "wine": {},
     "diabetes": {},
     "breast_cancer": {},
-    "digits": {}
+    "digits": {},
 }
 
 _default_params = {
@@ -90,7 +90,7 @@ _default_params = {
         "wine": {},
         "diabetes": {},
         "breast_cancer": {},
-        "digits": {}
+        "digits": {},
     },  # model_params["optics"],
 }
 

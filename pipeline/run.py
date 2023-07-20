@@ -112,24 +112,24 @@ for k_random in tqdm(range(init_generate, stop_generate)):
             (
                 "metrics",
                 (
-                    "metrics"+ext_type,
+                    "metrics" + ext_type,
                     data_metrics.sort_values("abilities", ascending=False),
                 ),
                 (None),
             ),
             (
                 "pij",
-                ("pij_true"+ext_type, pij),
-                ("pij_pred"+ext_type, pd.DataFrame(claire.b4.pij, columns=pij.columns)),
+                ("pij_true" + ext_type, pij),
+                ("pij_pred" + ext_type, pd.DataFrame(claire.b4.pij, columns=pij.columns)),
             ),
             (
                 "params",
                 (
-                    "abilities"+ext_type,
+                    "abilities" + ext_type,
                     pd.DataFrame(claire.b4.abilities, index=pij.columns, columns=["abilities"]),
                 ),
                 (
-                    "diff_disc"+ext_type,
+                    "diff_disc" + ext_type,
                     pd.DataFrame(
                         {
                             "difficulty": claire.b4.difficulties,
@@ -138,7 +138,7 @@ for k_random in tqdm(range(init_generate, stop_generate)):
                     ),
                 ),
             ),
-            ("labels", ("labels"+ext_type, data_results), (None)),
+            ("labels", ("labels" + ext_type, data_results), (None)),
         ]
 
         # save

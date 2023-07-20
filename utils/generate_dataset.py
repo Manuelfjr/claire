@@ -7,16 +7,18 @@ from pathlib import Path
 PROJECT_DIR = Path.cwd()
 sys.path.append(str(PROJECT_DIR))
 
+from typing import Any
+
+import config
 import numpy as np
 import pandas as pd
-from sklearn.datasets import *
+
 # utils
 from reader import read_file_yaml
 from sklearn import datasets
-from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import *
 from sklearn.decomposition import PCA
-from typing import Any
-import config
+from sklearn.preprocessing import StandardScaler
 
 # basics
 
@@ -127,22 +129,21 @@ content = {
     "diabetes": (diabetes, _pca_diabetes),
     "wine": (wine, _pca_wine),
     "digits": (digits, _pca_digits),
-    "breast_cancer": (cancer, _pca_cancer)
+    "breast_cancer": (cancer, _pca_cancer),
 }
 
-content = {
-    i: content[i] for i in config.file_names
-}
+content = {i: content[i] for i in config.file_names}
 
 _datasets = {
     i_name: {
         "content": content[i_name],
     }
-    for i_name in config.file_names 
+    for i_name in config.file_names
 }
 
 dataset_std = []
 data = {}
+
 
 def transform_and_input_target(URL: Any, i_name: str, X: Any, y: Any, data: dict):
     X = StandardScaler().fit_transform(X)
@@ -152,10 +153,11 @@ def transform_and_input_target(URL: Any, i_name: str, X: Any, y: Any, data: dict
     data[i_name]["labels"] = y
     return data[i_name]
 
+
 for i_name, args in _datasets.items():
     URL = PROJECT_DIR / "data" / i_name
     (X, y), (X_pca, y_pca) = args["content"]
-    if (X_pca is None)and(y_pca is None):
+    if (X_pca is None) and (y_pca is None):
         data[i_name] = transform_and_input_target(URL, i_name, X, y, data)
         data[i_name].to_csv(URL / Path(i_name + ".csv"), index=False)
     else:

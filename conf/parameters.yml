@@ -2,7 +2,7 @@ include_random_model: True
 
 experiments:
     rp_init: 35
-    rp_init: max
+    rp_final: 37
 
 correlation_method: spearman
 

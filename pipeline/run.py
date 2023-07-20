@@ -29,9 +29,9 @@ path_conf = PROJECT_DIR / "conf"
 file_path_parameters = path_conf / "parameters.yml"
 path_data = [path_root / i for i in config.file_names]
 parameters = read_file_yaml(file_path_parameters)
-ext_type = params["outputs"]["extension_type"]
-ext_local_img = params["outputs"]["extension_local_img"]
-ext_best_img = params["outputs"]["extension_best_img"]
+ext_type = parameters["outputs"]["extension_type"]
+ext_local_img = parameters["outputs"]["extension_local_img"]
+ext_best_img = parameters["outputs"]["extension_best_img"]
 
 ##### read       ##################################
 data_all = {i: pd.read_csv(path_data[idx] / Path(i + ext_type)) for idx, i in enumerate(config.file_names)}
@@ -50,12 +50,12 @@ else:
     number_random_models = 1
 path_result = Path(config.dir_result)
 
-init_generate = params["experiments"]["rp_init"]
+init_generate = parameters["experiments"]["rp_init"]
 
-if params["experiments"]["rp_init"] == "max":
+if parameters["experiments"]["rp_final"] == "max":
     stop_generate = number_random_models
 else:
-    stop_generate = params["experiments"]["rp_init"]
+    stop_generate = parameters["experiments"]["rp_final"]
 
 del config.params["optics"]
 for k_random in tqdm(range(init_generate, stop_generate)):

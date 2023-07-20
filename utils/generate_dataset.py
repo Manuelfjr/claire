@@ -15,6 +15,7 @@ from reader import read_file_yaml
 from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from typing import Any
 import config
 
 # basics
@@ -85,48 +86,48 @@ varied = datasets.make_blobs(
 ####################### real data
 # iris
 _iris = load_iris()
-#_pca_iris = PCA(2).fit_transform(_iris["data"])
-#iris = _pca_iris, _iris["target"]
+_pca_iris = PCA(2).fit_transform(_iris["data"])
+_pca_iris = _pca_iris, _iris["target"]
 iris = _iris["data"], _iris["target"]
 
 # diabetes
 _diabetes = load_diabetes()
-#_pca_diabetes = PCA(2).fit_transform(_diabetes["data"])
-#diabetes = _pca_diabetes, _diabetes["target"]
+_pca_diabetes = PCA(2).fit_transform(_diabetes["data"])
+_pca_diabetes = _pca_diabetes, _diabetes["target"]
 diabetes = _diabetes["data"], _diabetes["target"]
 
 # wine
 _wine = load_wine()
-#_pca_wine = PCA(2).fit_transform(_wine["data"])
-#wine = _pca_wine, _wine["target"]
+_pca_wine = PCA(2).fit_transform(_wine["data"])
+_pca_wine = _pca_wine, _wine["target"]
 wine = _wine["data"], _wine["target"]
 
 # digits
 _digits = load_digits()
-#_pca_digits = PCA(2).fit_transform(_digits["data"])
-#digits = _pca_digits, _digits["target"]
+_pca_digits = PCA(2).fit_transform(_digits["data"])
+_pca_digits = _pca_digits, _digits["target"]
 digits = _digits["data"], _digits["target"]
 
 # cancer
 _cancer = load_breast_cancer()
-#_pca_cancer = PCA(2).fit_transform(_cancer["data"])
-#cancer = _pca_cancer, _cancer["target"]
+_pca_cancer = PCA(2).fit_transform(_cancer["data"])
+_pca_cancer = _pca_cancer, _cancer["target"]
 cancer = _cancer["data"], _cancer["target"]
 #######################
 
 # organize content
 content = {
-    "aniso": aniso,
-    "noisy_circles": noisy_circles,
-    "noisy_moons": noisy_moons,
-    "blobs": blobs,
-    "varied": varied,
-    "no_structure": no_structure,
-    "iris": iris,
-    "diabetes": diabetes,
-    "wine": wine,
-    "digits": digits,
-    "breast_cancer": cancer
+    "aniso": (aniso, (None, None)),
+    "noisy_circles": (noisy_circles, (None, None)),
+    "noisy_moons": (noisy_moons, (None, None)),
+    "blobs": (blobs, (None, None)),
+    "varied": (varied, (None, None)),
+    "no_structure": (no_structure, (None, None)),
+    "iris": (iris, _pca_iris),
+    "diabetes": (diabetes, _pca_diabetes),
+    "wine": (wine, _pca_wine),
+    "digits": (digits, _pca_digits),
+    "breast_cancer": (cancer, _pca_cancer)
 }
 
 content = {
@@ -137,17 +138,26 @@ _datasets = {
     i_name: {
         "content": content[i_name],
     }
-    for i_name in config.file_names # parameters["generation_params"].items()
+    for i_name in config.file_names 
 }
 
 dataset_std = []
 data = {}
-for i_name, args in _datasets.items():
-    URL = PROJECT_DIR / "data" / i_name
-    X, y = args["content"]
+
+def transform_and_input_target(URL: Any, i_name: str, X: Any, y: Any, data: dict):
     X = StandardScaler().fit_transform(X)
     if not os.path.exists(URL):
         os.makedirs(URL)
     data[i_name] = pd.DataFrame(X)
     data[i_name]["labels"] = y
-    data[i_name].to_csv(URL / Path(i_name + ".csv"), index=False)
+    return data[i_name]
+
+for i_name, args in _datasets.items():
+    URL = PROJECT_DIR / "data" / i_name
+    (X, y), (X_pca, y_pca) = args["content"]
+    if (X_pca is None)and(y_pca is None):
+        data[i_name] = transform_and_input_target(URL, i_name, X, y, data)
+        data[i_name].to_csv(URL / Path(i_name + ".csv"), index=False)
+    else:
+        data[i_name] = transform_and_input_target(URL, i_name, X_pca, y_pca, data)
+        data[i_name].to_csv(URL / Path(i_name + "_pca.csv"), index=False)

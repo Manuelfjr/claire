@@ -9,6 +9,9 @@ outputs:
     simulation_random:
         filepath: simulation_dataset
         data_filepath: "{}"
+    extension_type: .csv
+    extension_local_img: .png
+    extension_best_img: .eps
 
 generation_params:
     aniso:
@@ -45,12 +48,12 @@ datasets:
     - wine
     - diabetes
     - breast_cancer
-#     - aniso
-#     - blobs
-#     - varied
-#     - noisy_moons
-#     - noisy_circles
-#     - no_structure
+    - aniso
+    - blobs
+    - varied
+    - noisy_moons
+    - noisy_circles
+    - no_structure
 
 #     - digits
 

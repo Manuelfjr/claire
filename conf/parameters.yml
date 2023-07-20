@@ -45,13 +45,14 @@ datasets:
     - wine
     - diabetes
     - breast_cancer
-#     - digits
 #     - aniso
 #     - blobs
 #     - varied
 #     - noisy_moons
 #     - noisy_circles
 #     - no_structure
+
+#     - digits
 
 models_fit:
     - kmeans

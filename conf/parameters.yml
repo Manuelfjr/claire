@@ -1,8 +1,8 @@
 include_random_model: True
 
 experiments:
-    rp_init: 51
-    rp_final: 70
+    rp_init: 35
+    rp_final: 51
 
 correlation_method: spearman
 

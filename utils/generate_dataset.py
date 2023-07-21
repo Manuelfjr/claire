@@ -16,7 +16,13 @@ import pandas as pd
 # utils
 from reader import read_file_yaml
 from sklearn import datasets
-from sklearn.datasets import *
+from sklearn.datasets import (
+    load_breast_cancer,
+    load_diabetes,
+    load_digits,
+    load_iris,
+    load_wine,
+)
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 

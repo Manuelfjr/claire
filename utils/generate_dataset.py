@@ -62,7 +62,7 @@ args = parser.parse_args()
 # ============
 # read parameters
 parameters = read_file_yaml(file_path_parameters)
-ext_type = params["outputs"]["extension_type"]
+ext_type = parameters["outputs"]["extension_type"]
 
 _params_dataset = {
     i_name: {

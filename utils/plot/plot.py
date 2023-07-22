@@ -56,5 +56,5 @@ class GeneratePlots:
                     axes[ax[0], ax[1]].set_ylabel(f"{_name}", fontsize=20)
 
                 fig.colorbar(points, ax=axes[ax[0], ax[1]])
-
+        plt.ioff()
         return fig, axes

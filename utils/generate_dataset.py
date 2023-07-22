@@ -16,7 +16,13 @@ import pandas as pd
 # utils
 from reader import read_file_yaml
 from sklearn import datasets
-from sklearn.datasets import *
+from sklearn.datasets import (
+    load_breast_cancer,
+    load_diabetes,
+    load_digits,
+    load_iris,
+    load_wine,
+)
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
@@ -56,6 +62,7 @@ args = parser.parse_args()
 # ============
 # read parameters
 parameters = read_file_yaml(file_path_parameters)
+ext_type = parameters["outputs"]["extension_type"]
 
 _params_dataset = {
     i_name: {
@@ -159,7 +166,7 @@ for i_name, args in _datasets.items():
     (X, y), (X_pca, y_pca) = args["content"]
     if (X_pca is None) and (y_pca is None):
         data[i_name] = transform_and_input_target(URL, i_name, X, y, data)
-        data[i_name].to_csv(URL / Path(i_name + ".csv"), index=False)
+        data[i_name].to_csv(URL / Path(i_name + ext_type), index=False)
     else:
         data[i_name] = transform_and_input_target(URL, i_name, X_pca, y_pca, data)
-        data[i_name].to_csv(URL / Path(i_name + "_pca.csv"), index=False)
+        data[i_name].to_csv(URL / Path(i_name + "_pca" + ext_type), index=False)

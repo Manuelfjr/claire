@@ -2,12 +2,12 @@ include_random_model: True
 
 experiments:
     rp_init: 0
-    rp_final: 70
+    rp_final: 2
 
 correlation_method: spearman
 
 results:
-    filepath: results
+    filepath: tests
 
 outputs:
     simulation_random:
@@ -62,12 +62,13 @@ datasets:
 #     - digits
 
 models_fit:
-    - kmeans
-    - dbscan
-    - kernel_kmeans
-    - spectral_clustering
-    - mean_shift
-    - optics
+    # - kmeans
+    # - dbscan
+    # - kernel_kmeans
+    # - spectral_clustering
+    # - mean_shift
+    # - optics
+    - null
 
 general:
     min: &min 1

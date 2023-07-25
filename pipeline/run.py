@@ -32,7 +32,12 @@ parameters = read_file_yaml(file_path_parameters)
 ext_type = parameters["outputs"]["extension_type"]
 ext_local_img = parameters["outputs"]["extension_local_img"]
 ext_best_img = parameters["outputs"]["extension_best_img"]
-
+path_result = (
+    PROJECT_DIR
+    / config.dir_result
+)
+if not os.path.exists(path_result):
+    os.makedirs(path_result)
 ##### read       ##################################
 data_all = {i: pd.read_csv(path_data[idx] / Path(i + ext_type)) for idx, i in enumerate(config.file_names)}
 
@@ -50,6 +55,9 @@ else:
     number_random_models = 1
 path_result = Path(config.dir_result)
 
+if not os.path.exists(path_result):
+    os.makedirs(path_result)
+
 init_generate = parameters["experiments"]["rp_init"]
 
 if parameters["experiments"]["rp_final"] == "max":
@@ -64,9 +72,9 @@ for k_random in tqdm(range(init_generate, stop_generate)):
     which_k_random = "n_random_model: [ {} ]".format(k_random + 1)
     print(title_part_n1 + which_k_random + title_part_n3)
     if number_random_models != 1:
-        path_result = path_result / Path(f"random_n{k_random+1}")
-        if not os.path.exists(PROJECT_DIR / path_result):
-            os.makedirs(path_result)
+        path_result_k_partition = path_result / Path(f"random_n{k_random+1}")
+        if not os.path.exists(path_result_k_partition):
+            os.makedirs(path_result_k_partition)
 
     for i in tqdm(config.file_names):
         models_params = config.params | {"optics": [config._optics_params[i]]}
@@ -78,7 +86,7 @@ for k_random in tqdm(range(init_generate, stop_generate)):
             _X=_X,
             _Y=_Y,
             metrics=config.metrics,
-            dir_result=path_result,
+            dir_result=path_result_k_partition,
             path_root=PROJECT_DIR,
         )
 
@@ -143,4 +151,3 @@ for k_random in tqdm(range(init_generate, stop_generate)):
 
         # save
         claire.save_results(i, dir_contents)
-    path_result = Path(config.dir_result)

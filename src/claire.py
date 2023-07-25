@@ -84,7 +84,7 @@ class CLAIRE:
         return pd.DataFrame(self.results)
 
     def generate_pij_matrix(
-        self, data_results: pd.DataFrame, k_random_models: int = 0, n_clusters: int = 3
+        self, data_results: pd.DataFrame, k_random_models: int = 0, n_clusters: int = 3, experiment_test: bool = False
     ) -> pd.DataFrame:
         """Generate the pij matrix.
 
@@ -96,15 +96,20 @@ class CLAIRE:
         -------------------------------------------------------
             pij matrix.
         """
+        self._data_results = data_results.copy()
         for i in range(k_random_models):
-            data_results[f"random_model_n{i+1}"] = np.random.randint(0, n_clusters, data_results.shape[0])
+            self._data_results[f"random_model_n{i+1}"] = np.random.randint(0, n_clusters, self._data_results.shape[0])
 
-        tp = TransformPairwise(data_results, 4)
-        pij = tp.generate_pij_matrix(data_results)
+        tp = TransformPairwise(self._data_results, 4)
+        pij = tp.generate_pij_matrix(self._data_results)
 
-        pij["average_model"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].mean(axis=1)
-        pij["optimal_clustering"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].max(axis=1)
-
+        if not experiment_test:
+            pij["average_model"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].mean(axis=1)
+            pij["optimal_clustering"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].max(axis=1)
+        else:
+            pij["average_model"] = pij.mean(axis=1)
+            pij["optimal_clustering"] = pij.max(axis=1)
+            
         return pij
 
     def fit_beta4(self, pij: pd.DataFrame, **kwargs) -> Beta4:
@@ -178,8 +183,7 @@ class CLAIRE:
             _name: Name of the dataset.
             data_contents: List of data to be saved.
         """
-        path_root = self.path_root  # Changed variable name to 'path_root'
-        dir_save_dataset_i = path_root / self.dir_result / Path(_name)
+        dir_save_dataset_i = self.dir_result / Path(_name)
         url_save_dataset_i = [dir_save_dataset_i / Path(i[0]) for i in data_contents]
         for url in url_save_dataset_i:
             if not os.path.exists(url):

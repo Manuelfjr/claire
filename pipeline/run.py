@@ -32,10 +32,7 @@ parameters = read_file_yaml(file_path_parameters)
 ext_type = parameters["outputs"]["extension_type"]
 ext_local_img = parameters["outputs"]["extension_local_img"]
 ext_best_img = parameters["outputs"]["extension_best_img"]
-path_result = (
-    PROJECT_DIR
-    / config.dir_result
-)
+path_result = PROJECT_DIR / config.dir_result
 if not os.path.exists(path_result):
     os.makedirs(path_result)
 ##### read       ##################################

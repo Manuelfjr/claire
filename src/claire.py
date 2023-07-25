@@ -109,7 +109,7 @@ class CLAIRE:
         else:
             pij["average_model"] = pij.mean(axis=1)
             pij["optimal_clustering"] = pij.max(axis=1)
-            
+
         return pij
 
     def fit_beta4(self, pij: pd.DataFrame, **kwargs) -> Beta4:

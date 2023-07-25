@@ -32,13 +32,10 @@ parameters = read_file_yaml(file_path_parameters)
 ext_type = parameters["outputs"]["extension_type"]
 ext_local_img = parameters["outputs"]["extension_local_img"]
 ext_best_img = parameters["outputs"]["extension_best_img"]
-path_result = (
-    PROJECT_DIR
-    /  parameters["results"]["filepath"]
-)
+path_result = PROJECT_DIR / parameters["results"]["filepath"]
 if not os.path.exists(path_result):
     os.makedirs(path_result)
-    
+
 #### read       ##################################
 data_all = {i: pd.read_csv(path_data[idx] / Path(i + ext_type)) for idx, i in enumerate(config.file_names)}
 
@@ -57,6 +54,12 @@ for i in config.file_names:
 
 init_generate = parameters["experiments"]["rp_init"]
 
+# select if it is random include simulation
+if parameters["include_random_model"]:
+    number_random_models = len(np.unique(list(config.models_name_dataset.values())[0]))
+else:
+    number_random_models = 1
+
 if parameters["experiments"]["rp_final"] == "max":
     stop_generate = number_random_models
 else:
@@ -72,7 +75,7 @@ for k_random in tqdm(range(init_generate, stop_generate)):
 
     for i in tqdm(config.file_names):
         models_params = config.params | {"optics": [config._optics_params[i]]}
-        
+
         claire = CLAIRE(
             models_name=models_name_dataset[i],
             models={},
@@ -92,12 +95,9 @@ for k_random in tqdm(range(init_generate, stop_generate)):
         which_k_dataset = "dataset: [ {} ]".format(i)
 
         print(title_part_n1 + which_k_dataset + title_part_n3)
-        
+
         pij = claire.generate_pij_matrix(
-            pd.DataFrame(index = np.arange(0,_X[i].shape[0])),
-            k_random + 1,
-            n_clusters,
-            True
+            pd.DataFrame(index=np.arange(0, _X[i].shape[0])), k_random + 1, n_clusters, True
         )
 
         # set beta4 params
@@ -145,4 +145,3 @@ for k_random in tqdm(range(init_generate, stop_generate)):
 
         # save
         claire.save_results(i, dir_contents)
-        

@@ -71,6 +71,7 @@ for i in config.file_names:
         n_clusters = len(np.unique(_Y[i]))
 
     for k_random in tqdm(range(init_generate + 1, stop_generate + 1)):
+        np.random.seed(k_random)
         data_random[i][f"random_n{k_random}"] = np.random.randint(0, n_clusters, _X[i].shape[0])
 
 del config.params["optics"]

@@ -72,7 +72,7 @@ for i in config.file_names:
 
     for k_random in tqdm(range(init_generate + 1, stop_generate + 1)):
         np.random.seed(k_random)
-        data_random[i][f"random_n{k_random}"] = np.random.randint(0, n_clusters, _X[i].shape[0])
+        data_random[i][f"random_model_n{k_random}"] = np.random.randint(0, n_clusters, _X[i].shape[0])
 
 del config.params["optics"]
 for k_random in tqdm(range(init_generate, stop_generate)):

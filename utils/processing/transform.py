@@ -12,7 +12,7 @@ class TransformPairwise:
     def generate_pij_matrix(self, data=None):
         self.transformed_matrix = pd.DataFrame(np.nan, columns=self.data.columns, index=range(self.data.shape[0]))
         i_line = 0
-        for idx1, i in tqdm(enumerate(self.data.values)):
+        for idx1, i in tqdm(list(enumerate(self.data.values))):
             j_line = 0
             item_i = list(i)
 

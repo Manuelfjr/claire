@@ -1,5 +1,5 @@
 include_random_model: True
-experiment_tests: True
+experiment_tests: True # change to false, when finished the simulation
 experiments:
     rp_init: 0
     rp_final: 70 # 36
@@ -7,7 +7,7 @@ experiments:
 correlation_method: spearman
 
 results:
-    filepath: tests
+    filepath: results
 
 outputs:
     init_values: 2
@@ -41,8 +41,8 @@ generation_params:
 
 beta_params:
     learning_rate: 0.1
-    epochs: 100 # 10000
-    n_inits: 10 # 1000
+    epochs: 10000 # 10000
+    n_inits: 1000 # 1000
     # n_workers: -1,
     random_seed: 1
     tol: 1.0e-8

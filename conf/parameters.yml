@@ -2,7 +2,7 @@ include_random_model: True
 experiment_tests: True # change to false, when finished the simulation
 experiments:
     rp_init: 0
-    rp_final: 70 # 36
+    rp_final: 35 # 36
 
 correlation_method: spearman
 

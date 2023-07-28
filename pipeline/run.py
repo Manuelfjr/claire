@@ -62,6 +62,17 @@ if parameters["experiments"]["rp_final"] == "max":
 else:
     stop_generate = parameters["experiments"]["rp_final"]
 
+data_random = {}
+for i in tqdm(config.file_names):
+    data_random[i] = pd.DataFrame()
+    if len(np.unique(_Y[i])) == 1:
+        n_clusters = np.random.randint(1, 10)
+    else:
+        n_clusters = len(np.unique(_Y[i]))
+
+    for k_random in tqdm(range(init_generate + 1, stop_generate + 1)):
+        data_random[i][f"random_n{k_random}"] = np.random.randint(0, n_clusters, _X[i].shape[0])
+
 del config.params["optics"]
 for k_random in tqdm(range(init_generate, stop_generate)):
     #     if k_random > 0:
@@ -101,6 +112,10 @@ for k_random in tqdm(range(init_generate, stop_generate)):
         claire.fit_combination_models(combination_models, _X[i])
 
         data_results = claire.generate_results(combination_models)
+
+        # add random columns
+        data_results = pd.concat([data_results, data_random[i].iloc[:, : (k_random + 1)]], axis=1)
+
         pij = claire.generate_pij_matrix(data_results, k_random + 1, n_clusters)
 
         # set beta4 params

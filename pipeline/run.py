@@ -63,7 +63,7 @@ else:
     stop_generate = parameters["experiments"]["rp_final"]
 
 data_random = {}
-for i in tqdm(config.file_names):
+for i in config.file_names:
     data_random[i] = pd.DataFrame()
     if len(np.unique(_Y[i])) == 1:
         n_clusters = np.random.randint(1, 10)

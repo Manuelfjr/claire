@@ -8,7 +8,6 @@ from pathlib import Path
 
 PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
-print(os.getcwd())
 
 
 def extract_numerical_prefix(notebook_name):
@@ -34,6 +33,7 @@ def convert_and_execute_notebooks(input_directory, output_directory):
             os.path.isfile(os.path.join(input_directory, file))
             and re.match(pattern, file)
             and not file.startswith("01")
+            and not file.startswith("99")
         )
     ]
 

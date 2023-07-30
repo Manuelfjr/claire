@@ -27,6 +27,7 @@ from tqdm import tqdm
 # metrics
 from utils import config
 from utils.reader import read_file_yaml
+from utils.utils import get_last_modification_directory
 
 # ## Parameters
 
@@ -64,6 +65,8 @@ file_path_pij = {
 
 n_random = np.sort([int(i.replace("random_n", "")) for i in os.listdir(path_results) if ".placehold" not in i])
 path_random = ["random_n" + str(i) for i in n_random]
+path_results = [path_results / i for i in path_random]
+path_results, path_random = get_last_modification_directory(path_results, path_random, params)
 
 
 # ## Read datasets
@@ -129,7 +132,7 @@ def equation_k(xi0: np.array, xi1: np.array, m_models: int, k_partitions: int) -
 
 error_partition = {}
 partitions_compare = {}
-for name in tqdm(config.file_names[:1]):
+for name in tqdm(config.file_names):
     error_partition[name] = {}
     partitions_compare[name] = {}
     for i0_random in path_random:

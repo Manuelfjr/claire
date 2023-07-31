@@ -97,10 +97,10 @@ class CLAIRE:
             pij matrix.
         """
         self._data_results = data_results.copy()
-        for i in range(k_random_models):
-            self._data_results[f"random_model_n{i+1}"] = np.random.randint(0, n_clusters, self._data_results.shape[0])
+        # for i in range(k_random_models):
+        #     self._data_results[f"random_model_n{i+1}"] = np.random.randint(0, n_clusters, self._data_results.shape[0])
 
-        tp = TransformPairwise(self._data_results, 4)
+        tp = TransformPairwise(16)
         pij = tp.generate_pij_matrix(self._data_results)
 
         if not experiment_test:

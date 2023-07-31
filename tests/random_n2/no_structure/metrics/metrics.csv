@@ -1,5 +1,0 @@
-,abilities,v_measure,mutual_info,adjusted_rand_score,calinski_harabasz,davies_bouldin,silhouette
-random_model_n1,0.7550891041755676,,,,0.7962916732057063,48.65133197353075,-0.04298941289981141
-random_model_n2,0.7550891041755676,,,,0.6391639113300566,106.08697657668692,-0.042871556592978984
-average_model,0.7550891041755676,,,,,,
-optimal_clustering,0.7550891041755676,,,,,,

@@ -1,5 +1,5 @@
 include_random_model: True
-experiment_tests: True # change to false, when finished the simulation
+experiment_tests: False # change to false, when finished the simulation
 experiments:
     rp_init: 0
     rp_final: &rp_final 70 # 36

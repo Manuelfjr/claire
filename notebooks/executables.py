@@ -47,6 +47,7 @@ def convert_and_execute_notebooks(input_directory, output_directory):
         subprocess.run(["black", py_file_path])
         shutil.move(os.path.join(input_directory, py_file), os.path.join(output_directory, py_file))
         subprocess.run(["python", os.path.join(output_directory, py_file)])
+        subprocess.run(["poetry", "run", "pre-commit", "run", "--files", os.path.join(output_directory, py_file)])
 
 
 if __name__ == "__main__":

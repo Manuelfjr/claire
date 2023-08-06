@@ -75,10 +75,9 @@ for i in config.file_names:
         data_random[i][f"random_model_n{k_random}"] = np.random.randint(0, n_clusters, _X[i].shape[0])
 
 del config.params["optics"]
-for k_random in tqdm(range(parameters["experiments"]["rp_stop_init"], parameters["experiments"]["rp_stop_final"])):
-    #     if k_random > 0:
-    #         break
-    which_k_random = "n_random_model: [ {} ]".format(k_random + 1)
+len_k_random = range(parameters["experiments"]["rp_stop_init"], parameters["experiments"]["rp_stop_final"])
+for k_random in tqdm(len_k_random):
+    which_k_random = "n_random_model: [ {} / {}]".format(k_random + 1, len(len_k_random))
     print(title_part_n1 + which_k_random + title_part_n3)
     if number_random_models != 1:
         path_result_k_partition = path_result / Path(f"random_n{k_random+1}")

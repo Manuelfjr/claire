@@ -2,7 +2,7 @@ include_random_model: True
 experiment_tests: False # change to false, when finished the simulation
 experiments:
     rp_init: -1
-    rp_final: &rp_final 0 # 36
+    rp_final: &rp_final 70 # 36
     rp_stop_init: -1
     rp_stop_final: *rp_final
 

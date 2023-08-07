@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[1]:
+# In[ ]:
 
 
 # utils
@@ -34,7 +34,7 @@ np.random.seed(0)
 
 # ## Parameters
 
-# In[2]:
+# In[ ]:
 
 
 path_conf = PROJECT_DIR / "conf"
@@ -62,7 +62,7 @@ ext_local_img = params["outputs"]["extension_local_img"]
 ext_best_img = params["outputs"]["extension_best_img"]
 
 
-# In[3]:
+# In[ ]:
 
 
 under_line = "\n{}\n"
@@ -74,13 +74,13 @@ print(title_part_n1 + title_part_n2 + title_part_n3)
 
 # ## Read
 
-# In[4]:
+# In[ ]:
 
 
 parameters = read_file_yaml(file_path_parameters)
 
 
-# In[5]:
+# In[ ]:
 
 
 init = params["outputs"]["init_values"]
@@ -93,7 +93,7 @@ for name, url in zip(path_random, path_results):
 
 # ## Concat all results
 
-# In[6]:
+# In[ ]:
 
 
 data = metrics[f"random_n{init}"]["aniso"].T.filter(regex="^(?!.*random_model)").T[["abilities"]].reset_index()
@@ -116,7 +116,7 @@ for random_n, content_n in metrics.items():
 data.set_index("model", inplace=True)
 
 
-# In[7]:
+# In[ ]:
 
 
 datasets = {}
@@ -130,7 +130,7 @@ for i in config.file_names:
 
 # ## Plots
 
-# In[8]:
+# In[ ]:
 
 
 models = list(config.models.keys()) + ["average_model", "optimal_clustering"]
@@ -147,7 +147,7 @@ handler_lines = [
 ]
 
 
-# In[9]:
+# In[ ]:
 
 
 # by dataset
@@ -173,7 +173,7 @@ for name, content in datasets.items():
     plt.ioff()
 
 
-# In[10]:
+# In[ ]:
 
 
 # global plot

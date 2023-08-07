@@ -51,9 +51,9 @@ beta_params:
     set_priors: True
 
 datasets:
-    - iris
-    - wine
-    - breast_cancer
+    # - iris
+    # - wine
+    # - breast_cancer
     - aniso
     - blobs
     - varied

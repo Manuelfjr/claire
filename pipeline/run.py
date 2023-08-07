@@ -114,7 +114,8 @@ for k_random in tqdm(len_k_random):
         data_results = claire.generate_results(combination_models)
 
         # add random columns
-        data_results = pd.concat([data_results, data_random[i].iloc[:, : (k_random + 1)]], axis=1)
+        if k_random != -1:
+            data_results = pd.concat([data_results, data_random[i].iloc[:, 1 : (k_random + 1 + 1)]], axis=1)
 
         pij = claire.generate_pij_matrix(data_results, k_random + 1, n_clusters)
 

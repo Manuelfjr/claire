@@ -34,11 +34,12 @@ from utils.utils import get_last_modification_directory
 # In[ ]:
 
 
-path_results = PROJECT_DIR / "results"
 path_outputs = PROJECT_DIR / "outputs"
 file_path_parameters = PROJECT_DIR / "conf" / "parameters.yml"
 
 params = read_file_yaml(file_path_parameters)
+
+path_results = PROJECT_DIR / params["results"]["filepath"]
 
 ext_type = params["outputs"]["extension_type"]
 ext_local_img = params["outputs"]["extension_local_img"]

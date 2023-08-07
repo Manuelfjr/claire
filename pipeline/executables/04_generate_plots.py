@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[ ]:
+# In[1]:
 
 
 # utils
@@ -30,7 +30,7 @@ np.random.seed(0)
 
 # ## Reading datasets
 
-# In[ ]:
+# In[2]:
 
 
 path_outputs_url = PROJECT_DIR / "outputs"
@@ -50,14 +50,14 @@ ext_local_img = parameters["outputs"]["extension_local_img"]
 ext_best_img = parameters["outputs"]["extension_best_img"]
 
 
-# In[ ]:
+# In[3]:
 
 
 path_data = {i: path_data_url / i for i in config.file_names}
 path_params = {i: {j: path_results_url / i / j / "params" for j in config.file_names} for i in path_random}
 
 
-# In[ ]:
+# In[4]:
 
 
 data = {
@@ -68,7 +68,7 @@ data = {
 }
 
 
-# In[ ]:
+# In[5]:
 
 
 params = {}

@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[1]:
+# In[ ]:
 
 
 # utils
@@ -15,6 +15,7 @@ PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
 
 # basics
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -30,7 +31,7 @@ np.random.seed(0)
 
 # ## Reading datasets
 
-# In[2]:
+# In[ ]:
 
 
 path_outputs_url = PROJECT_DIR / "outputs"
@@ -50,14 +51,14 @@ ext_local_img = parameters["outputs"]["extension_local_img"]
 ext_best_img = parameters["outputs"]["extension_best_img"]
 
 
-# In[3]:
+# In[ ]:
 
 
 path_data = {i: path_data_url / i for i in config.file_names}
 path_params = {i: {j: path_results_url / i / j / "params" for j in config.file_names} for i in path_random}
 
 
-# In[4]:
+# In[ ]:
 
 
 data = {
@@ -68,7 +69,7 @@ data = {
 }
 
 
-# In[5]:
+# In[ ]:
 
 
 params = {}
@@ -93,16 +94,71 @@ for i_random, i_content in tqdm(list(params.items())):
     _plt_parameters = set_params(data, i_content)
     gp = GeneratePlots(data=data)
     fig, _ = gp.scatterplot_diff_disc(
-        len(_plt_parameters.keys()), 2, plot_parameters=_plt_parameters, figsize=(18, (14 / 6) * len(config.file_names))
+        len(_plt_parameters.keys()), 2, plot_parameters=_plt_parameters, figsize=(20, len(config.file_names) + 12)
     )
     figs[i_random] = fig
+    plt.close()
 
-    figs[i_random].savefig(
+
+# In[ ]:
+
+
+i_figs_unique = {}
+for i in tqdm(config.file_names):
+    i_figs_unique[i] = {}
+    for i_random, i_content in list(params.items()):
+        _plt_parameters = set_params({i: data[i]}, i_content)
+        gp = GeneratePlots(data={i: data[i]})
+        fig, _ = gp.scatterplot_diff_disc_unique(1, 2, plot_parameters={i: _plt_parameters[i]}, figsize=(22, 7))
+        i_figs_unique[i][i_random] = fig
+        plt.close()
+
+
+# In[ ]:
+
+
+i_figs_unique_param = {}
+for i in tqdm(config.file_names):
+    i_figs_unique_param[i] = {}
+    for i_random, i_content in list(params.items()):
+        _plt_parameters = set_params({i: data[i]}, i_content)
+        gp = GeneratePlots(data={i: data[i]})
+        fig = gp.scatterplot(1, 1, plot_parameters=_plt_parameters[i], figsize=(10, 8))
+        i_figs_unique_param[i][i_random] = fig
+        plt.close()
+
+
+# ## Save
+
+# In[ ]:
+
+
+for i_random, i_content in tqdm(figs.items()):
+    i_content.savefig(
         path_outputs_url / Path(i_random + "_" + "diff_disc_all" + ext_best_img), format=ext_best_img[1:]
     )  # eps format
-    figs[i_random].savefig(
-        path_outputs_url / Path(i_random + "_" + "diff_disc_all" + ext_local_img), format=ext_local_img[1:]
+    i_content.savefig(
+        path_outputs_url / Path(i_random + "_" + "diff_disc_all" + ext_local_img),
+        format=ext_local_img[1:],
+        **parameters["outputs"]["args"],
     )  # png format
+
+
+# In[ ]:
+
+
+for i_name, i_content in tqdm(list(i_figs_unique_param.items())):
+    for j_random, j_content in list(i_content.items())[:1]:
+        for which_param, k_figure in j_content.items():
+            k_figure.savefig(
+                path_outputs_url / Path(i_name + "_" + j_random + "_" + which_param + ext_best_img),
+                format=ext_best_img[1:],
+            )  # eps format
+            k_figure.savefig(
+                path_outputs_url / Path(i_name + "_" + j_random + "_" + which_param + ext_best_img),
+                format=ext_local_img[1:],
+                **parameters["outputs"]["args"],
+            )  # png format
 
 
 # In[ ]:

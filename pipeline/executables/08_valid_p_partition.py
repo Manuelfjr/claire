@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[ ]:
+# In[1]:
 
 
 # utils
@@ -31,7 +31,7 @@ from utils.utils import get_last_modification_directory
 
 # ## Parameters
 
-# In[ ]:
+# In[2]:
 
 
 path_outputs = PROJECT_DIR / "outputs"
@@ -72,7 +72,7 @@ path_results, path_random = get_last_modification_directory(path_results, path_r
 
 # ## Read datasets
 
-# In[ ]:
+# In[3]:
 
 
 # params
@@ -85,7 +85,7 @@ data_params = {
 }
 
 
-# In[ ]:
+# In[4]:
 
 
 # pij
@@ -100,7 +100,7 @@ data_pij = {
 
 # ##  Methods
 
-# In[ ]:
+# In[5]:
 
 
 def equation_k(xi0: np.array, xi1: np.array, m_models: int, k_partitions: int) -> np.array:
@@ -128,7 +128,7 @@ def equation_k(xi0: np.array, xi1: np.array, m_models: int, k_partitions: int) -
 
 # ## Processing
 
-# In[ ]:
+# In[6]:
 
 
 error_partition = {}
@@ -139,7 +139,7 @@ for name in tqdm(config.file_names):
     for i0_random in path_random:
         error_partition[name][i0_random] = {}
         count = np.where(path_random[0] == np.array(path_random))[0][0] + 1
-        for i1_random in path_random[(np.where(i0_random == np.array(path_random))[0][0] + 1) :]:
+        for i1_random in path_random:
             m, k = len(np.unique(config.models_name_dataset[name])), int(i1_random.replace("random_", "")[1:])
             i0_text, i1_text = "$p_{" + str(k - 1) + "}$", "$p_{" + str(k) + "}$"
             i0_random_data = data_params[i0_random][name]["abilities"].copy()
@@ -176,17 +176,23 @@ for name in tqdm(config.file_names):
 
 
 figs = {}
-for i_name, i_content in tqdm(error_partition.items()):
+for i_name, i_content in tqdm(list(error_partition.items())):
     figs[i_name] = {}
     for j_random, j_content_plot in i_content.items():
         if j_random == path_random[-1]:
             continue
         j_content_data = pd.DataFrame(j_content_plot).T
         j_content_data.index = j_content_data.index.str.replace("random_n", "$p_{(") + ")}$"
-        _fig, _ax = plt.subplots(1, 1, figsize=(22, 10))
+        _fig, _ax = plt.subplots(1, 1, figsize=(22, 10), **params["outputs"]["args"])
         _ax.plot(j_content_data.index, j_content_data.values)
         plt.ioff()
         figs[i_name][j_random] = _fig
+
+
+# In[ ]:
+
+
+figs.keys()
 
 
 # ## Save

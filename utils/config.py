@@ -110,9 +110,12 @@ metrics = [
 ]
 
 models_name_dataset = {}
+models_name_compress = {}
 for dataset_name in file_names:
-    models_name_dataset[dataset_name] = []
+    models_name_dataset[dataset_name] = {}
+    models_name_compress[dataset_name] = []
     for name, model in params.items():
+        models_name_dataset[dataset_name][name] = []
         for name_to_process in model:
             if name != "optics":
                 text = str(list(name_to_process.items()))
@@ -120,11 +123,14 @@ for dataset_name in file_names:
                 text = text.replace(".", "_")
                 text = re.sub("[^0-9a-zA-Z_-]", "", text)
                 text = str(name + "_" + text).replace(" ", "_")
-                models_name_dataset[dataset_name].append(text)
+                models_name_dataset[dataset_name][name].append(text)
+                models_name_compress[dataset_name].append(text)
             else:
                 text = str(list(model[dataset_name].items()))
                 text = re.sub(",+", "_", text)
                 text = text.replace(".", "_")
                 text = re.sub("[^0-9a-zA-Z_-]", "", text)
                 text = str(name + "_" + text).replace(" ", "_")
-                models_name_dataset[dataset_name].append(text)
+                models_name_dataset[dataset_name][name].append(text)
+                models_name_compress[dataset_name].append(text)
+        models_name_dataset[dataset_name][name] = list(np.unique(models_name_dataset[dataset_name][name]))

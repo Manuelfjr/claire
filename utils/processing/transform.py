@@ -30,44 +30,51 @@ class TransformPairwise:
         self.transformed_matrix = np.array(pij_values)
         return pd.DataFrame(self.transformed_matrix, columns=self.columns)
 
-    def combination_models(self, models: Dict[str, callable], params: Dict[str, List[Dict[str, any]]]) -> List[any]:
-        return [models[params_model](**arg) for params_model in params.keys() for arg in params[params_model]]
+    def combination_models(self, models: Dict[str, callable], params: Dict[str, List[Dict[str, any]]]) -> Dict:
+        results = {}
+        for params_model in params.keys():
+            results[params_model] = []
+            for arg in params[params_model]:
+                results[params_model].append(models[params_model](**arg))
+        return (
+            results  # [models[params_model](**arg) for params_model in params.keys() for arg in params[params_model]]
+        )
 
 
-class _TransformPairwise:
-    def __init__(self, data=None, works=-1):
-        self.data = data
-        self.works = works
+# class _TransformPairwise:
+#     def __init__(self, data=None, works=-1):
+#         self.data = data
+#         self.works = works
 
-    def generate_pij_matrix(self, data=None):
-        self.transformed_matrix = pd.DataFrame(np.nan, columns=self.data.columns, index=range(self.data.shape[0]))
-        i_line = 0
-        for idx1, i in tqdm(list(enumerate(self.data.values))):
-            j_line = 0
-            item_i = list(i)
+#     def generate_pij_matrix(self, data=None):
+#         self.transformed_matrix = pd.DataFrame(np.nan, columns=self.data.columns, index=range(self.data.shape[0]))
+#         i_line = 0
+#         for idx1, i in tqdm(list(enumerate(self.data.values))):
+#             j_line = 0
+#             item_i = list(i)
 
-            tmp = self.data.drop(idx1, axis=0)
+#             tmp = self.data.drop(idx1, axis=0)
 
-            boolean_values = []
-            for _, j in enumerate(tmp.values):
-                model_j = list(j)
-                boolean_values.append([k == l for k, l in zip(item_i, model_j)])
-            data_boolean = pd.DataFrame(boolean_values)
+#             boolean_values = []
+#             for _, j in enumerate(tmp.values):
+#                 model_j = list(j)
+#                 boolean_values.append([k == l for k, l in zip(item_i, model_j)])
+#             data_boolean = pd.DataFrame(boolean_values)
 
-            for idx3, b in enumerate(data_boolean.T.values):
-                tmp2 = data_boolean.drop(idx3, axis=1)
+#             for idx3, b in enumerate(data_boolean.T.values):
+#                 tmp2 = data_boolean.drop(idx3, axis=1)
 
-                self.transformed_matrix.iloc[i_line, j_line] = pd.DataFrame(
-                    [list(b == m) for m in tmp2.T.values]
-                ).T.sum().sum() / ((self.data.shape[1] - 1) * (self.data.shape[0] - 1))
+#                 self.transformed_matrix.iloc[i_line, j_line] = pd.DataFrame(
+#                     [list(b == m) for m in tmp2.T.values]
+#                 ).T.sum().sum() / ((self.data.shape[1] - 1) * (self.data.shape[0] - 1))
 
-                j_line += 1
-                # break
-            i_line += 1
-        return self.transformed_matrix
+#                 j_line += 1
+#                 # break
+#             i_line += 1
+#         return self.transformed_matrix
 
-    def combination_models(self, models, params):
-        return [models[params_model](**arg) for params_model in params.keys() for arg in params[params_model]]
+#     def combination_models(self, models, params):
+#         return [models[params_model](**arg) for params_model in params.keys() for arg in params[params_model]]
 
 
 # n, m = 300, 5

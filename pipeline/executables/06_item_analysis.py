@@ -103,7 +103,7 @@ data_pij = {
 figs = {}
 for i_random in tqdm(path_random):
     figs[i_random] = {}
-    _fig, _axes = plt.subplots(len(config.file_names), 2, figsize=(14, 20))
+    _fig, _axes = plt.subplots(len(config.file_names), 2, figsize=(14, 20), **parameters["outputs"]["args"])
     for idx, (i_name, i_content) in enumerate(list(data_pij[i_random].items())):
         pij_true = i_content["pij_true"].copy()
         abilities = data_params[i_random][i_name]["abilities"]
@@ -154,7 +154,7 @@ for i_random in tqdm(path_random):
 
 for contents in figs.values():
     _fig, _file_path = contents["figure"], contents["file_path"]
-    _fig.savefig(_file_path)
+    _fig.savefig(_file_path, **parameters["outputs"]["args"])
 
 
 # In[ ]:

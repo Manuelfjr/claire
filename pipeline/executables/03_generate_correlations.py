@@ -112,7 +112,7 @@ for i_random, i_content in tqdm(list(file_path_corr.items())):
         if "no_structure" in j_name:
             continue
         url = j_content["url"] / Path(j_name + "_corr_spearman" + ext_local_img)
-        figure = plt.figure(figsize=(15, 8))
+        figure = plt.figure(figsize=(15, 8), **params["outputs"]["args"])
         sns.set(font_scale=1)
         sns.heatmap(data_corr[i_random][j_name], annot=True, cmap="crest")
         plt.close()
@@ -225,11 +225,10 @@ for i_random, i_content in tqdm(list(data_grouped.items())):
         path_outputs / Path(i_random + "_" + "abilities_corr_spearman" + ext_best_img), format=ext_best_img[1:]
     )  # best format
     fig.savefig(
-        path_outputs / Path(i_random + "_" + "abilities_corr_spearman" + ext_local_img), format=ext_local_img[1:]
+        path_outputs / Path(i_random + "_" + "abilities_corr_spearman" + ext_local_img),
+        format=ext_local_img[1:],
+        **params["outputs"]["args"],
     )  # local format
-
-
-# In[ ]:
 
 
 # In[ ]:

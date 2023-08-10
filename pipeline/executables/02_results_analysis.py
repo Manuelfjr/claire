@@ -165,8 +165,8 @@ for name, content in datasets.items():
                 ax.plot(_line_index, line_data, **_params[i])
                 _line_index = []
     ax.grid(True)
-    ax.set_title(name)
-    ax.set_ylabel("$abilities$")
+    ax.set_title(name, fontsize=22)
+    ax.set_ylabel("$abilities$", fontsize=22)
     ax.set_xlabel(r"$n\_random\_model$")
     ax.legend(handler_lines, models, loc="upper left", bbox_to_anchor=(1.00, 1.0))
     figs_dataset[name] = _fig
@@ -177,7 +177,7 @@ for name, content in datasets.items():
 
 
 # global plot
-fig, axes = plt.subplots(len(datasets.keys()), 1, figsize=(25, 8 * len(datasets)))
+fig, axes = plt.subplots(len(datasets.keys()), 1, figsize=(25, 8 * len(datasets)), dpi=300)
 
 if not isinstance(axes, np.ndarray):
     axes = [axes]
@@ -194,8 +194,8 @@ for ax, (name, content) in zip(axes, datasets.items()):
                 ax.plot(_line_index, line_data, **_params[i])
                 _line_index = []
     ax.grid(True)
-    ax.set_title(name)
-    ax.set_ylabel("$abilities$")
+    ax.set_title(name, fontsize=22)
+    ax.set_ylabel("$abilities$", fontsize=22)
 
 axes[-1].set_xlabel(r"$p\_random\_model$")
 handler_lines = [
@@ -211,16 +211,20 @@ plt.ioff()
 # In[ ]:
 
 
-fig.savefig(str(file_path_simulation_plot) + ext_best_img)  # save eps format
-fig.savefig(str(file_path_simulation_plot) + ext_local_img)  # save png format
+fig.savefig(str(file_path_simulation_plot) + ext_best_img, **parameters["outputs"]["args"])  # save eps format
+fig.savefig(str(file_path_simulation_plot) + ext_local_img, **parameters["outputs"]["args"])  # save png format
 
 
 # In[ ]:
 
 
 for name, content in figs_dataset.items():
-    content.savefig(str(file_path_plot_i_dataset).format(name) + ext_best_img)  # save eps format
-    content.savefig(str(file_path_plot_i_dataset).format(name) + ext_local_img)  # save png format
+    content.savefig(
+        str(file_path_plot_i_dataset).format(name) + ext_best_img, **parameters["outputs"]["args"]
+    )  # save eps format
+    content.savefig(
+        str(file_path_plot_i_dataset).format(name) + ext_local_img, **parameters["outputs"]["args"]
+    )  # save png format
 
 
 # In[ ]:

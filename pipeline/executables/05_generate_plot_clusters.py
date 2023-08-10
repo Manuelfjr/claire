@@ -91,18 +91,20 @@ for i_name, i_data in tqdm(list(data.items())):
         tmp_params = _params | {"data": data[i_name]["content"]}
     else:
         tmp_params = _params | {"data": data[i_name]["content"], "hue": "labels"}
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(12, 8), **params["outputs"]["args"])
     sns.scatterplot(**tmp_params)
     txt = i_name.replace("_", " ").title()
     plt.title(txt, fontsize=30)
-    plt.savefig(path_outputs / Path(i_name + "_behavior" + ext_best_img), format=ext_best_img[1:])
+    plt.savefig(
+        path_outputs / Path(i_name + "_behavior" + ext_best_img), format=ext_best_img[1:], **params["outputs"]["args"]
+    )
 
 
 # In[ ]:
 
 
 n_cols = 2
-fig, axs = plt.subplots(int(np.ceil(len(data.items()) / n_cols)), n_cols, figsize=(10, 12))
+fig, axs = plt.subplots(int(np.ceil(len(data.items()) / n_cols)), n_cols, figsize=(10, 12), **params["outputs"]["args"])
 
 # Loop
 row = 0
@@ -137,7 +139,11 @@ plt.tight_layout()
 
 
 plt.savefig(file_path_distribution, format=ext_best_img[1:])  # best
-plt.savefig(str(file_path_distribution).replace(ext_best_img, ext_local_img), format=ext_local_img[1:])  # local
+plt.savefig(
+    str(file_path_distribution).replace(ext_best_img, ext_local_img),
+    format=ext_local_img[1:],
+    **params["outputs"]["args"],
+)  # local
 
 
 # In[ ]:

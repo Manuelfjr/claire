@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[12]:
+# In[ ]:
 
 
 # utils
@@ -33,7 +33,7 @@ np.random.seed(0)
 
 # ## Parameters
 
-# In[13]:
+# In[ ]:
 
 
 path_conf = PROJECT_DIR / "conf"
@@ -72,24 +72,12 @@ print(title_part_n1 + title_part_n2 + title_part_n3)
 # In[ ]:
 
 
-parameters = read_file_yaml(file_path_parameters)
-
-
-# In[ ]:
-
-
 init = 1
 metrics = {}
 for name, url in zip(path_random, path_results):
     metrics[name] = {}
     for dataset in config.file_names:
         metrics[name][dataset] = pd.read_csv(url / Path(dataset) / "metrics" / Path("metrics" + ext_type), index_col=0)
-
-
-# In[ ]:
-
-
-path_random
 
 
 # ## Concat all results
@@ -103,6 +91,8 @@ for i_random, i_content in metrics.items():
     for i_name, i_metric in i_content.items():
         result[i_random][i_name] = i_metric["abilities"].filter(regex="random_model").mean()
 data = pd.DataFrame(result)
+if "random_n0" in data.columns:
+    data.drop("random_n0", axis=1, inplace=True)
 
 
 # In[ ]:
@@ -131,7 +121,7 @@ _params = {
 # In[ ]:
 
 
-fig, ax = plt.subplots(1, 1, figsize=((20 / 8) * data.shape[0], 10))
+fig, ax = plt.subplots(1, 1, figsize=((20 / 8) * data.shape[0], 10), **params["outputs"]["args"])
 
 for index, row in data.iterrows():
     param = _params[index]
@@ -157,7 +147,7 @@ plt.show()
 
 
 fig.savefig(str(file_path_random_abilities).format(ext_best_img))  # save best format
-fig.savefig(str(file_path_random_abilities).format(ext_local_img))  # save local format
+fig.savefig(str(file_path_random_abilities).format(ext_local_img), **params["outputs"]["args"])  # save local format
 
 
 # In[ ]:

@@ -47,7 +47,7 @@ for i in data_all.keys():
 
 #### select if it is random include simulation ####
 if parameters["include_random_model"]:
-    number_random_models = len(np.unique(list(config.models_name_dataset.values())[0]))
+    number_random_models = len(np.unique(list(config.models_name_compress.values())[0]))
 else:
     number_random_models = 1
 path_result = Path(config.dir_result)
@@ -79,6 +79,7 @@ len_k_random = range(parameters["experiments"]["rp_stop_init"], parameters["expe
 for k_random in tqdm(len_k_random):
     which_k_random = "n_random_model: [ {} / {}]".format(k_random + 1, len(len_k_random))
     print(title_part_n1 + which_k_random + title_part_n3)
+
     if number_random_models != 1:
         path_result_k_partition = path_result / Path(f"random_n{k_random+1}")
         if not os.path.exists(path_result_k_partition):
@@ -88,7 +89,7 @@ for k_random in tqdm(len_k_random):
         models_params = config.params | {"optics": [config._optics_params[i]]}
 
         claire = CLAIRE(
-            models_name=np.unique(config.models_name_dataset[i]),
+            models_name=config.models_name_dataset[i],
             models=config.models,
             params=models_params,
             _X=_X,
@@ -109,9 +110,9 @@ for k_random in tqdm(len_k_random):
 
         #  processing
         combination_models = claire.transform()
-        claire.fit_combination_models(combination_models, _X[i])
 
-        data_results = claire.generate_results(combination_models)
+        models_fited = claire.fit_combination_models(combination_models, _X[i])
+        data_results = claire.generate_results(models_fited)
 
         # add random columns
         if k_random != -1:

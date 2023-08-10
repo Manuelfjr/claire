@@ -54,7 +54,7 @@ class CLAIRE:
         combination_models = TransformPairwise().combination_models(self.models, self.params)
         return combination_models
 
-    def fit_combination_models(self, combination_models: List[object], X_dataset_i: Any) -> None:
+    def fit_combination_models(self, combination_models: Dict, X_dataset_i: Any) -> Dict:
         """Fit the combination models to the training data.
 
         Parameters:
@@ -62,9 +62,11 @@ class CLAIRE:
             combination_models: List of combination models.
             X_dataset_i: Input data for dataset i.
         """
-
-        for model in combination_models:
-            model.fit(X_dataset_i)
+        for name, model in combination_models.items():
+            combination_models[name] = [i_model.fit(X_dataset_i) for i_model in model]
+            # model.fit(X_dataset_i)
+            # models_fited.append(model)
+        return combination_models
 
     def generate_results(self, data_results: Any) -> pd.DataFrame:
         """Generate the results DataFrame.
@@ -78,9 +80,10 @@ class CLAIRE:
             Results DataFrame.
         """
         self.results = {}
-        for idxx, i in enumerate(self.models_name):
-            if hasattr(data_results[idxx], "labels_"):
-                self.results[i] = data_results[idxx].labels_
+        for name, models in self.models_name.items():
+            for idxx, model in enumerate(models):
+                if hasattr(data_results[name][idxx], "labels_"):
+                    self.results[model] = data_results[name][idxx].labels_
         return pd.DataFrame(self.results)
 
     def generate_pij_matrix(

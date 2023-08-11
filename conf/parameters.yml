@@ -3,7 +3,7 @@ experiment_tests: False # change to false, when finished the simulation
 experiments:
     rp_init: &rp_init -1
     rp_final: &rp_final 70 # 36
-    rp_stop_init: 48 # *rp_init
+    rp_stop_init: 51 # *rp_init
     rp_stop_final: *rp_final
 
 correlation_method: spearman

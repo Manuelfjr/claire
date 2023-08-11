@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[1]:
+# In[ ]:
 
 
 # utils
@@ -31,7 +31,7 @@ from utils.utils import get_last_modification_directory
 
 # ## Parameters
 
-# In[2]:
+# In[ ]:
 
 
 path_outputs = PROJECT_DIR / "outputs"
@@ -72,7 +72,7 @@ path_results, path_random = get_last_modification_directory(path_results, path_r
 
 # ## Read datasets
 
-# In[3]:
+# In[ ]:
 
 
 # params
@@ -85,7 +85,7 @@ data_params = {
 }
 
 
-# In[4]:
+# In[ ]:
 
 
 # pij
@@ -100,7 +100,7 @@ data_pij = {
 
 # ##  Methods
 
-# In[5]:
+# In[ ]:
 
 
 def equation_k(xi0: np.array, xi1: np.array, m_models: int, k_partitions: int) -> np.array:
@@ -128,7 +128,7 @@ def equation_k(xi0: np.array, xi1: np.array, m_models: int, k_partitions: int) -
 
 # ## Processing
 
-# In[6]:
+# In[ ]:
 
 
 error_partition = {}

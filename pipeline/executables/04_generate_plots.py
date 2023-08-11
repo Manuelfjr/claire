@@ -155,7 +155,7 @@ for i_name, i_content in tqdm(list(i_figs_unique_param.items())):
                 format=ext_best_img[1:],
             )  # eps format
             k_figure.savefig(
-                path_outputs_url / Path(i_name + "_" + j_random + "_" + which_param + ext_best_img),
+                path_outputs_url / Path(i_name + "_" + j_random + "_" + which_param + ext_local_img),
                 format=ext_local_img[1:],
                 **parameters["outputs"]["args"],
             )  # png format

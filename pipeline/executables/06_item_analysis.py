@@ -181,14 +181,14 @@ for i_random in tqdm(path_random[:1]):
             if idx_param == 1:
                 _param = _param | {"c": diffs["discrimination"].values}
                 scatter = _axes_diff.scatter(**_param)
-                _axes_diff.set_xlabel("$1 - average\_item$")
+                _axes_diff.set_xlabel(r"$1 - average\_item$")
                 _axes_diff.set_ylabel("$difficulties$")
                 cbar = plt.colorbar(scatter, ax=_axes_diff)
                 cbar.set_label("discrimination")
 
             else:
                 _axes_abi.set_ylabel("$abilities$")
-                _axes_abi.set_xlabel("$average\_response$")
+                _axes_abi.set_xlabel(r"$average\_response$")
                 scatter = _axes_abi.scatter(**_param)
 
             _axes_abi.grid(True)

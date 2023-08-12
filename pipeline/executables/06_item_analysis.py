@@ -14,8 +14,6 @@ from pathlib import Path
 PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
 
-import warnings
-
 # viz
 import matplotlib.pyplot as plt
 
@@ -30,6 +28,7 @@ from tqdm import tqdm
 from utils import config
 from utils.reader import read_file_yaml
 from utils.utils import get_last_modification_directory
+import warnings
 
 warnings.filterwarnings("ignore")
 
@@ -113,14 +112,18 @@ for i_random in tqdm(path_random):
         pij_true = i_content["pij_true"].copy()
         abilities = data_params[i_random][i_name]["abilities"]
         diffs = data_params[i_random][i_name]["diff_disc"]
-
+        response = (
+            pij_true.T.mean(axis=1).to_frame("avg_response").reset_index().merge(abilities.reset_index(), on=["index"])
+        )
+        response_models = response[~response["index"].str.startswith("random_model_n")].copy()
+        response_random = response[response["index"].str.startswith("random_model_n")].copy()
         _params_plot = [
             {
                 "x": _param[0],
                 "y": _param[1],
             }
             for _param in [
-                [pij_true.mean().values, abilities["abilities"].values],
+                [response_models["avg_response"].values, response_models["abilities"].values],
                 [1 - pij_true.mean(axis=1).values, diffs["difficulty"].values],
             ]
         ]
@@ -132,7 +135,19 @@ for i_random in tqdm(path_random):
                 cbar = plt.colorbar(scatter, ax=_axes[idx, idx_param])
                 cbar.set_label("discrimination")
             else:
+                if i_random != "random_n0":
+                    _param.update({"label": "models"})
+
                 scatter = _axes[idx, idx_param].scatter(**_param)
+
+                if i_random != "random_n0":
+                    _axes[idx, idx_param].scatter(
+                        x=response_random["avg_response"].values,
+                        y=response_random["abilities"].values,
+                        c="red",
+                        label=r"$p = {}$".format(len(response_random["avg_response"].values)),
+                    )
+                    _axes[idx, idx_param].legend()
             _axes[idx, idx_param].grid(True)
             _axes[idx, idx_param].set_title(
                 i_name + " | {:.5}".format(np.corrcoef(_param["x"], _param["y"])[0, 1]), loc="center"
@@ -152,13 +167,19 @@ for i_random in tqdm(path_random):
     }
 
 
+# In[ ]:
+
+
+figs["random_n70"]["figure"]
+
+
 # ## Unique plot
 
 # In[ ]:
 
 
 figs_unique = {}
-for i_random in tqdm(path_random[:1]):
+for i_random in tqdm(path_random):
     figs_unique[i_random] = {}
     for idx, (i_name, i_content) in enumerate(list(data_pij[i_random].items())):
         _fig_abi, _axes_abi = plt.subplots(1, 1, figsize=(8, 6), **parameters["outputs"]["args"])
@@ -167,16 +188,22 @@ for i_random in tqdm(path_random[:1]):
         abilities = data_params[i_random][i_name]["abilities"]
         diffs = data_params[i_random][i_name]["diff_disc"]
 
+        response = (
+            pij_true.T.mean(axis=1).to_frame("avg_response").reset_index().merge(abilities.reset_index(), on=["index"])
+        )
+        response_models = response[~response["index"].str.startswith("random_model_n")].copy()
+        response_random = response[response["index"].str.startswith("random_model_n")].copy()
         _params_plot = [
             {
                 "x": _param[0],
                 "y": _param[1],
             }
             for _param in [
-                [pij_true.mean().values, abilities["abilities"].values],
+                [response_models["avg_response"].values, response_models["abilities"].values],
                 [1 - pij_true.mean(axis=1).values, diffs["difficulty"].values],
             ]
         ]
+
         for idx_param, _param in enumerate(_params_plot):
             if idx_param == 1:
                 _param = _param | {"c": diffs["discrimination"].values}
@@ -189,13 +216,23 @@ for i_random in tqdm(path_random[:1]):
             else:
                 _axes_abi.set_ylabel("$abilities$")
                 _axes_abi.set_xlabel(r"$average\_response$")
+
+                if i_random != "random_n0":
+                    _param.update({"label": "models"})
+
                 scatter = _axes_abi.scatter(**_param)
+                if i_random != "random_n0":
+                    _axes_abi.scatter(
+                        x=response_random["avg_response"].values,
+                        y=response_random["abilities"].values,
+                        c="red",
+                        label=r"$p = {}$".format(len(response_random["avg_response"].values)),
+                    )
+                    _axes_abi.legend()
 
             _axes_abi.grid(True)
             _axes_diff.grid(True)
-            # _axes.set_title(
-            #     i_name + " | {:.5}".format(np.corrcoef(_param["x"], _param["y"])[0, 1]), loc="center"
-            # )
+
             plt.close()
             plt.tight_layout()
 

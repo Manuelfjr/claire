@@ -169,7 +169,7 @@ for name, content in tqdm(list(datasets.items())):
                 ax.plot(_line_index, line_data, **_params[i])
                 _line_index = []
     ax.grid(True)
-    ax.set_title(name, fontsize=22)
+    # ax.set_title(name, fontsize=22)
     ax.set_ylabel(r"$average\_response$", fontsize=22)
     ax.set_xlabel(r"$n\_random\_model$")
     ax.legend(handler_lines, models, loc="upper left", bbox_to_anchor=(1.00, 1.0))
@@ -224,10 +224,10 @@ fig.savefig(str(file_path_simulation_plot) + ext_local_img, **parameters["output
 
 for name, content in figs_dataset.items():
     content.savefig(
-        str(file_path_plot_i_dataset).format(name) + ext_best_img, **parameters["outputs"]["args"]
+        str(file_path_plot_i_dataset).format(name + "_avg") + ext_best_img, **parameters["outputs"]["args"]
     )  # save eps format
     content.savefig(
-        str(file_path_plot_i_dataset).format(name) + ext_local_img, **parameters["outputs"]["args"]
+        str(file_path_plot_i_dataset).format(name + "_avg") + ext_local_img, **parameters["outputs"]["args"]
     )  # save png format
 
 

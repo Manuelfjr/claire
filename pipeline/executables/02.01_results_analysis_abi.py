@@ -165,7 +165,7 @@ for name, content in tqdm(list(datasets.items())):
                 ax.plot(_line_index, line_data, **_params[i])
                 _line_index = []
     ax.grid(True)
-    ax.set_title(name, fontsize=22)
+    # ax.set_title(name, fontsize=22)
     ax.set_ylabel("$abilities$", fontsize=22)
     ax.set_xlabel(r"$n\_random\_model$")
     ax.legend(handler_lines, models, loc="upper left", bbox_to_anchor=(1.00, 1.0))

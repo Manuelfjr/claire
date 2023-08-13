@@ -60,14 +60,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "input_directory",
         nargs="?",
-        default=os.getcwd(),
-        help=f"Dir for notebooks to generate the plots. (default: {PROJECT_DIR / 'pipeline' / 'excutables'})",
+        default=Path.cwd(),
+        help=f"Dir for notebooks to generate the plots. (default: {Path.cwd()})",
     )
     parser.add_argument(
         "output_directory",
         nargs="?",
-        default=os.getcwd(),
-        help=f"Dir for noteb]ooks to generate the plots, output directory for .py's. (default: {Path.cwd()})",
+        default=PROJECT_DIR / 'pipeline' / 'excutables',
+        help=f"Output directory for .py's. (default: {PROJECT_DIR / 'pipeline' / 'excutables'})",
     )
     parser.add_argument(
         "works",

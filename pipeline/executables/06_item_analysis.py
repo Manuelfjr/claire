@@ -14,8 +14,6 @@ from pathlib import Path
 PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
 
-import warnings
-
 # viz
 import matplotlib.pyplot as plt
 
@@ -30,6 +28,7 @@ from tqdm import tqdm
 from utils import config
 from utils.reader import read_file_yaml
 from utils.utils import get_last_modification_directory
+import warnings
 
 warnings.filterwarnings("ignore")
 

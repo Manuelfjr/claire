@@ -29,7 +29,6 @@ from utils import config
 from utils.reader import read_file_yaml
 from utils.utils import get_last_modification_directory
 
-
 # ## Parameters
 
 # In[ ]:

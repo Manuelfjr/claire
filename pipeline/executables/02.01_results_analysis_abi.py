@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[ ]:
+# In[1]:
 
 
 # utils
@@ -35,7 +35,7 @@ np.random.seed(0)
 
 # ## Parameters
 
-# In[ ]:
+# In[2]:
 
 
 path_conf = PROJECT_DIR / "conf"
@@ -63,7 +63,7 @@ ext_local_img = params["outputs"]["extension_local_img"]
 ext_best_img = params["outputs"]["extension_best_img"]
 
 
-# In[ ]:
+# In[3]:
 
 
 under_line = "\n{}\n"
@@ -75,13 +75,13 @@ print(title_part_n1 + title_part_n2 + title_part_n3)
 
 # ## Read
 
-# In[ ]:
+# In[4]:
 
 
 parameters = read_file_yaml(file_path_parameters)
 
 
-# In[ ]:
+# In[5]:
 
 
 init = params["outputs"]["init_values"]
@@ -94,7 +94,7 @@ for name, url in zip(path_random, path_results):
 
 # ## Concat all results
 
-# In[ ]:
+# In[6]:
 
 
 data = metrics[f"random_n{init}"]["aniso"].T.filter(regex="^(?!.*random_model)").T[["abilities"]].reset_index()
@@ -117,7 +117,7 @@ for random_n, content_n in metrics.items():
 data.set_index("model", inplace=True)
 
 
-# In[ ]:
+# In[7]:
 
 
 datasets = {}
@@ -131,7 +131,7 @@ for i in config.file_names:
 
 # ## Plots
 
-# In[ ]:
+# In[8]:
 
 
 models = list(config.models.keys()) + ["average_model", "optimal_clustering"]
@@ -148,7 +148,7 @@ handler_lines = [
 ]
 
 
-# In[ ]:
+# In[9]:
 
 
 figs_dataset = {}
@@ -173,7 +173,7 @@ for name, content in tqdm(list(datasets.items())):
     plt.close()
 
 
-# In[ ]:
+# In[10]:
 
 
 # global plot

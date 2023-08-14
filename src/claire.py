@@ -107,8 +107,8 @@ class CLAIRE:
         pij = tp.generate_pij_matrix(self._data_results)
 
         if not experiment_test:
-            pij["average_model"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].mean(axis=1)
-            pij["optimal_clustering"] = pij[pij.filter(regex="^(?!.*random)", axis=1).columns].max(axis=1)
+            pij["average_model"] = pij[pij.filter(regex="^(?!.*random_model_n)", axis=1).columns].mean(axis=1)
+            pij["optimal_clustering"] = pij[pij.filter(regex="^(?!.*random_model_n)", axis=1).columns].max(axis=1)
         else:
             pij["average_model"] = pij.mean(axis=1)
             pij["optimal_clustering"] = pij.max(axis=1)

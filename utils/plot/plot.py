@@ -9,16 +9,24 @@ class GeneratePlots:
         self.pij = pij
         self.data = data
 
-    def scatterplot(self, nrows=1, ncols=1, figsize=(18, 18), plot_parameters=None, fontsize=20):
+    def scatterplot(self,
+                    nrows=1,
+                    ncols=1,
+                    figsize=(18, 18),
+                    plot_parameters=None,
+                    fontsize=20,
+                    xlabel="$pca_{(1)}$", 
+                    ylabel="$pca_{(2)}$"):
         _fig = {}
         for which_param in plot_parameters:
             (name, _, params) = which_param
             fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
             points = axes.scatter(**params)
             # axes.set_title(name)
-            axes.set_xlabel("$pca_{(1)}$", fontsize=fontsize)
-            axes.set_ylabel("$pca_{(2)}$", fontsize=fontsize)
+            axes.set_xlabel(xlabel, fontsize=fontsize)
+            axes.set_ylabel(ylabel, fontsize=fontsize)
             fig.colorbar(points, ax=axes)
+            fig.tight_layout()
             _fig[name] = fig
             plt.close()
         return _fig

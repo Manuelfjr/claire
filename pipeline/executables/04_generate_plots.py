@@ -117,15 +117,92 @@ for i in tqdm(config.file_names):
 # In[ ]:
 
 
+# viz
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+class GeneratePlots:
+    def __init__(self, pij=None, data=None):
+        self.pij = pij
+        self.data = data
+
+    def _scatterplot(
+        self,
+        nrows=1,
+        ncols=1,
+        figsize=(18, 18),
+        plot_parameters=None,
+        fontsize=20,
+        xlabel="$pca_{(1)}$",
+        ylabel="$pca_{(2)}$",
+    ):
+        _fig = {}
+        for which_param in plot_parameters:
+            (name, _, params) = which_param
+            fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
+            points = axes.scatter(**params)
+            # axes.set_title(name)
+            axes.set_xlabel(xlabel, fontsize=fontsize)
+            axes.set_ylabel(ylabel, fontsize=fontsize)
+            fig.colorbar(points, ax=axes)
+            fig.tight_layout()
+            _fig[name] = fig
+            plt.close()
+        return _fig
+
+    def scatterplot(
+        self,
+        nrows=1,
+        ncols=1,
+        figsize=(18, 18),
+        plot_parameters=None,
+        fontsize=20,
+        xlabel="$pca_{(1)}$",
+        ylabel="$pca_{(2)}$",
+    ):
+        _fig = {}
+        (name_diff, _, params_diff), (name_disc, _, params_disc) = plot_parameters[0], plot_parameters[1]
+        params_diff["s"] = (
+            (params_disc["c"] - params_disc["c"].min()) / (params_disc["c"].max() - params_disc["c"].min())
+        ) * 100
+        fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
+        points = axes.scatter(**params_diff)
+        axes.set_xlabel(xlabel, fontsize=fontsize)
+        axes.set_ylabel(ylabel, fontsize=fontsize)
+        fig.colorbar(points, ax=axes)
+        fig.tight_layout()
+        _fig[name_diff] = fig
+        plt.close()
+        return _fig
+
+
+# In[ ]:
+
+
+params_general = {"nrows": 1, "ncols": 1, "figsize": (10, 8), "fontsize": 26}
 i_figs_unique_param = {}
 for i in tqdm(config.file_names):
     i_figs_unique_param[i] = {}
     for i_random, i_content in list(params.items()):
         _plt_parameters = set_params({i: data[i]}, i_content)
         gp = GeneratePlots(data={i: data[i]})
-        fig = gp.scatterplot(1, 1, plot_parameters=_plt_parameters[i], figsize=(10, 8))
+        params_general.update({"plot_parameters": _plt_parameters[i]})
+        if i not in ["wine", "iris", "breast_cancer", "diabetes", "digits"]:
+            params_general.update({"xlabel": r"$x_{1}$", "ylabel": r"$x_{2}$"})
+        fig = gp.scatterplot(**params_general)
+        if i not in ["wine", "iris", "breast_cancer", "diabetes", "digits"]:
+            del params_general["xlabel"]
+            del params_general["ylabel"]
         i_figs_unique_param[i][i_random] = fig
         plt.close()
+
+
+# In[ ]:
+
+
+# i_figs_unique_param["no_structure"]["random_n0"]["difficulties"]#["varied"]["random_n0"]["difficulties"]
 
 
 # ## Save
@@ -162,3 +239,6 @@ for i_name, i_content in tqdm(list(i_figs_unique_param.items())):
 
 
 # In[ ]:
+
+
+# 2,

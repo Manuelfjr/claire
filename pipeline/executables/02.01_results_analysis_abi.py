@@ -3,7 +3,7 @@
 
 # ## Imports
 
-# In[1]:
+# In[ ]:
 
 
 # utils
@@ -35,7 +35,7 @@ np.random.seed(0)
 
 # ## Parameters
 
-# In[2]:
+# In[ ]:
 
 
 path_conf = PROJECT_DIR / "conf"
@@ -52,10 +52,11 @@ if not os.path.exists(path_outputs):
 file_path_simulation_plot = path_outputs / params["outputs"]["simulation_random"]["filepath"]
 
 file_path_plot_i_dataset = path_outputs / params["outputs"]["simulation_random"]["data_filepath"]
-n_random = np.sort([int(i.replace("random_n", "")) for i in os.listdir(path_root) if ".placehold" not in i])
+n_random = np.sort([int(i.replace("random_n", "")) for i in os.listdir(path_root) if ".placehold" not in i])[
+    : (1 + params["experiments"]["rp_final"])
+]
 path_random = ["random_n" + str(i) for i in n_random]
 path_results = [path_root / i for i in path_random]
-
 path_results, path_random = get_last_modification_directory(path_results, path_random, params)
 
 ext_type = params["outputs"]["extension_type"]
@@ -63,7 +64,7 @@ ext_local_img = params["outputs"]["extension_local_img"]
 ext_best_img = params["outputs"]["extension_best_img"]
 
 
-# In[3]:
+# In[ ]:
 
 
 under_line = "\n{}\n"
@@ -75,13 +76,13 @@ print(title_part_n1 + title_part_n2 + title_part_n3)
 
 # ## Read
 
-# In[4]:
+# In[ ]:
 
 
 parameters = read_file_yaml(file_path_parameters)
 
 
-# In[5]:
+# In[ ]:
 
 
 init = params["outputs"]["init_values"]
@@ -94,7 +95,7 @@ for name, url in zip(path_random, path_results):
 
 # ## Concat all results
 
-# In[6]:
+# In[ ]:
 
 
 data = metrics[f"random_n{init}"]["aniso"].T.filter(regex="^(?!.*random_model)").T[["abilities"]].reset_index()
@@ -117,7 +118,7 @@ for random_n, content_n in metrics.items():
 data.set_index("model", inplace=True)
 
 
-# In[7]:
+# In[ ]:
 
 
 datasets = {}
@@ -131,7 +132,7 @@ for i in config.file_names:
 
 # ## Plots
 
-# In[8]:
+# In[ ]:
 
 
 models = list(config.models.keys()) + ["average_model", "optimal_clustering"]
@@ -148,10 +149,32 @@ handler_lines = [
 ]
 
 
-# In[9]:
+# In[ ]:
+
+
+models_process = []
+for i in models:
+    if "kmeans" not in i:
+        models_process.append(
+            i.replace("dbscan", "DBSCAN")
+            .replace("mean_shift", "Mean Shift")
+            .replace("spectral_clustering", "Spectral Clustering")
+            .replace("optics", "OPTICS")
+            .replace("average_model", "Average Response")
+            .replace("optimal_clustering", "Best Response")
+        )
+    else:
+        if i == "kmeans":
+            models_process.append(i.replace("kmeans", "K-means"))
+        else:
+            models_process.append(i.replace("kernel_kmeans", "Kernel K-Means"))
+
+
+# In[ ]:
 
 
 figs_dataset = {}
+xy_fontsize = 34
 for name, content in tqdm(list(datasets.items())):
     _fig, ax = plt.subplots(1, 1, figsize=(25, 8))
     content = content.dropna()
@@ -160,20 +183,23 @@ for name, content in tqdm(list(datasets.items())):
             if i in line_name:
                 _line_index = []
                 for k in line_data.index.str.split("n"):
-                    _line_index.append("$p_{(" + k[1] + ")}$")
+                    _line_index.append(k[1])
                 linestyle = "--"
                 ax.plot(_line_index, line_data, **_params[i])
                 _line_index = []
     ax.grid(True)
     # ax.set_title(name, fontsize=22)
-    ax.set_ylabel("$abilities$", fontsize=22)
-    ax.set_xlabel(r"$n\_random\_model$")
-    ax.legend(handler_lines, models, loc="upper left", bbox_to_anchor=(1.00, 1.0))
+    ax.set_ylabel("abilities", fontsize=xy_fontsize)
+    ax.set_xlabel("number of random partitions", fontsize=xy_fontsize)
+    ax.legend(handler_lines, models_process, loc="upper left", bbox_to_anchor=(1.00, 1.0), fontsize=26)
+    ax.tick_params(axis="both", labelsize=16)
+    ax.set_xlim(params["experiments"]["rp_init"] + 1, params["experiments"]["rp_final"])
+    _fig.tight_layout()
     figs_dataset[name] = _fig
     plt.close()
 
 
-# In[10]:
+# In[ ]:
 
 
 # global plot
@@ -189,20 +215,22 @@ for ax, (name, content) in tqdm(list(zip(axes, datasets.items()))):
             if i in line_name:
                 _line_index = []
                 for k in line_data.index.str.split("n"):
-                    _line_index.append("$p_{(" + k[1] + ")}$")
+                    _line_index.append(k[1])
                 linestyle = "--"
                 ax.plot(_line_index, line_data, **_params[i])
                 _line_index = []
     ax.grid(True)
-    ax.set_title(name, fontsize=22)
-    ax.set_ylabel("$abilities$", fontsize=22)
+    ax.set_title(name, fontsize=xy_fontsize)
+    ax.set_ylabel("abilities", fontsize=xy_fontsize)
+    ax.tick_params(axis="both", labelsize=16)
+    ax.set_xlim(params["experiments"]["rp_init"] + 1, params["experiments"]["rp_final"])
 
-axes[-1].set_xlabel(r"$p\_random\_model$")
+axes[-1].set_xlabel("number of random partitions", fontsize=xy_fontsize)
 handler_lines = [
     Line2D([], [], color=param["color"], linestyle=param["linestyle"], marker=param["marker"])
     for param in _params.values()
 ]
-axes[0].legend(handler_lines, models, loc="upper left", bbox_to_anchor=(1.00, 1.0))
+axes[0].legend(handler_lines, models_process, loc="upper left", bbox_to_anchor=(1.00, 1.0), fontsize=26)
 plt.close()
 
 

@@ -1,22 +1,24 @@
 import argparse
+import concurrent.futures
 import os
 import re
 import shutil
 import subprocess
 import sys
-from typing import Any
 from pathlib import Path
-import concurrent.futures
+from typing import Any
 
 PROJECT_DIR = Path.cwd().parent
 sys.path.append(str(PROJECT_DIR))
 workers = os.cpu_count()
+
 
 def extract_numerical_prefix(notebook_name: str) -> Any:
     match = re.match(r"^(\d+\.{0,}\d+)", notebook_name)
     if match:
         return match.group()
     return None
+
 
 def convert_and_execute_notebooks(input_directory: str, output_directory: str, works: int) -> None:
     if not os.path.isdir(input_directory):
@@ -50,10 +52,11 @@ def convert_and_execute_notebooks(input_directory: str, output_directory: str, w
         subprocess.run(["python", os.path.join(output_directory, py_file)])
         subprocess.run(["poetry", "run", "pre-commit", "run", "--files", os.path.join(output_directory, py_file)])
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers = works) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=works) as executor:
         executor.map(process_notebook, notebook_files)
-    
+
     return None
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert and excute the notebooks.")
@@ -66,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "output_directory",
         nargs="?",
-        default=PROJECT_DIR / 'pipeline' / 'excutables',
+        default=PROJECT_DIR / "pipeline" / "excutables",
         help=f"Output directory for .py's. (default: {PROJECT_DIR / 'pipeline' / 'excutables'})",
     )
     parser.add_argument(
@@ -77,5 +80,5 @@ if __name__ == "__main__":
         help=f"Number of works. (default: {workers})",
     )
     args = parser.parse_args()
-    
+
     convert_and_execute_notebooks(**vars(args))

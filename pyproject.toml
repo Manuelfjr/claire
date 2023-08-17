@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "aaai-claire-clustering"
 version = "0.1.0"
-description = "CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory"
+description = "CLAIRE: Clustering Evaluation based on Item Response Theory and Model Agreement"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 
@@ -17,7 +17,6 @@ birt-gd = "^0.1.47"
 pre-commit = "^3.3.3"
 python-dotenv = "^1.0.0"
 autopep8 = "^2.0.2"
-dask = {extras = ["dataframe"], version = "^2023.8.0"}
 
 [tool.poetry.dev-dependencies]
 black = "^23.3.0"

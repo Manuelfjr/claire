@@ -9,14 +9,16 @@ class GeneratePlots:
         self.pij = pij
         self.data = data
 
-    def _scatterplot(self,
-                    nrows=1,
-                    ncols=1,
-                    figsize=(18, 18),
-                    plot_parameters=None,
-                    fontsize=20,
-                    xlabel="$pca_{(1)}$", 
-                    ylabel="$pca_{(2)}$"):
+    def _scatterplot(
+        self,
+        nrows=1,
+        ncols=1,
+        figsize=(18, 18),
+        plot_parameters=None,
+        fontsize=20,
+        xlabel="$pca_{(1)}$",
+        ylabel="$pca_{(2)}$",
+    ):
         _fig = {}
         for which_param in plot_parameters:
             (name, _, params) = which_param
@@ -30,18 +32,22 @@ class GeneratePlots:
             _fig[name] = fig
             plt.close()
         return _fig
-        
-    def scatterplot(self,
-                    nrows=1,
-                    ncols=1,
-                    figsize=(18, 18),
-                    plot_parameters=None,
-                    fontsize=20,
-                    xlabel="$pca_{(1)}$", 
-                    ylabel="$pca_{(2)}$"):
+
+    def scatterplot(
+        self,
+        nrows=1,
+        ncols=1,
+        figsize=(18, 18),
+        plot_parameters=None,
+        fontsize=20,
+        xlabel="$pca_{(1)}$",
+        ylabel="$pca_{(2)}$",
+    ):
         _fig = {}
-        (name_diff, _, params_diff), (name_disc, _, params_disc)  = plot_parameters[0], plot_parameters[1] 
-        params_diff["s"] = ((params_disc["c"] - params_disc["c"].min())/(params_disc["c"].max() - params_disc["c"].min())) * 100
+        (name_diff, _, params_diff), (_, _, params_disc) = plot_parameters[0], plot_parameters[1]
+        params_diff["s"] = (
+            (params_disc["c"] - params_disc["c"].min()) / (params_disc["c"].max() - params_disc["c"].min())
+        ) * 100
         fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
         points = axes.scatter(**params_diff)
         axes.set_xlabel(xlabel, fontsize=fontsize)
@@ -51,7 +57,6 @@ class GeneratePlots:
         _fig[name_diff] = fig
         plt.close()
         return _fig
-
 
     def scatterplot_diff_disc(self, nrows=5, ncols=2, figsize=(18, 14), plot_parameters=None, fontsize=20):
         fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
@@ -73,7 +78,7 @@ class GeneratePlots:
         plt.close()
         return fig, axes
 
-    def scatterplot_diff_disc_unique(self, nrows=5, ncols=2, figsize=(18, 14), plot_parameters=None, fontsize = 20):
+    def scatterplot_diff_disc_unique(self, nrows=5, ncols=2, figsize=(18, 14), plot_parameters=None, fontsize=20):
         fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
         if isinstance(axes, matplotlib.axes._axes.Axes):
             axes = np.array([[axes]])

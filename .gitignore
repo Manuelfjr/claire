@@ -14,6 +14,7 @@ nohup.out
 *.sh
 99*
 test/
+assets/
 
 # Distribution / packaging
 .Python

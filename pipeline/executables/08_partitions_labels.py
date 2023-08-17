@@ -134,6 +134,7 @@ for i_random, i_content in tqdm(list(data_labels.items())[:1]):
                 x=data[j_name].iloc[:, 0], y=data[j_name].iloc[:, 1], c=data_labels[i_random][j_name][i_model].values
             )
             axes.set_title(i_model)
+            fig.tight_layout()
             plt.close()
             figs[i_random][j_name][i_model] = {
                 "figure": fig,

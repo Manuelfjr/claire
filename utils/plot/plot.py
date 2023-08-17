@@ -41,7 +41,7 @@ class GeneratePlots:
                     ylabel="$pca_{(2)}$"):
         _fig = {}
         (name_diff, _, params_diff), (name_disc, _, params_disc)  = plot_parameters[0], plot_parameters[1] 
-        params_diff["s"] = (params_disc["c"] - params_disc["c"].min())/(params_disc["c"].max() - params_disc["c"].min())
+        params_diff["s"] = ((params_disc["c"] - params_disc["c"].min())/(params_disc["c"].max() - params_disc["c"].min())) * 100
         fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
         points = axes.scatter(**params_diff)
         axes.set_xlabel(xlabel, fontsize=fontsize)

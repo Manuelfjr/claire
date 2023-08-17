@@ -2,6 +2,10 @@
 
 *CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
 
+
+*link:* <a href=https://anonymous.4open.science/r/aaai-claire-clustering-6113/README.md>anonymous-repository</a>
+
+<!--
 ## Poetry installation
 
 Run:
@@ -12,6 +16,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 ```bash
 pip install poetry
+
 ```
 
 ## Git clone
@@ -41,12 +46,4 @@ poetry install
 ```bash
 poetry run python3 pipeline/run.py
 ```
-
-## Expected plot of simulation's result
-
-<img src="outputs/simulation_dataset.png" alt="sim" style="object-position: 0 -180px; object-fit: cover;">
-
-<div class="text-right hide-lg hide-md hide-sm hide-xs flex-self-end ">
-
-
-
+-->

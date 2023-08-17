@@ -3,7 +3,12 @@
 *CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
 
 
-*link:* <a href=https://anonymous.4open.science/r/aaai-claire-clustering-6113/README.md>anonymous-repository</a>
+**link:** <a href=https://anonymous.4open.science/r/aaai-claire-clustering-6113/README.md>anonymous-repository</a>
+
+
+## Figures
+
+As figuras abaixos podem ser encontradas no diretorio [`/assets`](/assets) deste arquivo
 
 <!--
 ## Poetry installation

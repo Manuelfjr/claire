@@ -20,8 +20,6 @@ import matplotlib.pyplot as plt
 # basics
 import numpy as np
 import pandas as pd
-from matplotlib.lines import Line2D
-from scipy.stats import rankdata
 from tqdm import tqdm
 
 # metrics

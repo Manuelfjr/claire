@@ -18,7 +18,6 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 ```bash
 pip install poetry
-
 ```
 
 ## Download the zip

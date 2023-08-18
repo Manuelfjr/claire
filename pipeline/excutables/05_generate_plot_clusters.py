@@ -95,7 +95,6 @@ for i_name, i_data in tqdm(list(data.items())):
     sns.scatterplot(**tmp_params)
     txt = i_name.replace("_", " ").title()
     plt.title(txt, fontsize=30)
-    plt.close()
     plt.savefig(
         path_outputs / Path(i_name + "_behavior" + ext_best_img), format=ext_best_img[1:], **params["outputs"]["args"]
     )

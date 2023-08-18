@@ -116,7 +116,6 @@ for i_random, i_content in tqdm(list(file_path_corr.items())):
         sns.set(font_scale=1)
         sns.heatmap(data_corr[i_random][j_name], annot=True, cmap="crest")
         plt.close()
-        plt.ioff()
         plt.savefig(url)
 
 
@@ -218,9 +217,9 @@ for i_random, i_content in tqdm(list(data_grouped.items())):
     )
     ax.set_xticklabels(ax.get_xticklabels(), fontsize=52)
     ax.set_yticklabels(ax.get_yticklabels(), fontsize=52)
+    plt.close()
     figs_heatmap[i_random] = fig
     axes[i_random] = ax
-    plt.close()
     fig.savefig(
         path_outputs / Path(i_random + "_" + "abilities_corr_spearman" + ext_best_img), format=ext_best_img[1:]
     )  # best format

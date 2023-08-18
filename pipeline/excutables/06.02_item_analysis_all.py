@@ -182,12 +182,6 @@ for i_random in tqdm(path_random[:1]):
     }
 
 
-# In[ ]:
-
-
-# figs_unique["random_n0"]["difficulties"]["figure"]
-
-
 # ## Save
 
 # In[ ]:

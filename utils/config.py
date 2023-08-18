@@ -31,7 +31,11 @@ path_conf = PROJECT_DIR / "conf"
 file_path_parameters = path_conf / "parameters.yml"
 
 ##### read       ##################################
-parameters = read_file_yaml(file_path_parameters)
+try:
+    parameters = read_file_yaml(file_path_parameters)
+except:  # noqa: E722
+    parameters = read_file_yaml(Path.cwd() / "conf" / "parameters.yml")
+
 general_params = [
     parameters["general"]["min"],
     parameters["general"]["max"],

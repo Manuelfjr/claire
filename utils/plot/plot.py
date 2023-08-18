@@ -75,6 +75,7 @@ class GeneratePlots:
                     axes[ax[0], ax[1]].set_ylabel(f"{_name}", fontsize=fontsize)
 
                 fig.colorbar(points, ax=axes[ax[0], ax[1]])
+        fig.tight_layout()
         plt.close()
         return fig, axes
 
@@ -92,5 +93,6 @@ class GeneratePlots:
                 axes[ax[1], ax[0]].set_ylabel(f"{name}", fontsize=fontsize)
 
                 fig.colorbar(points, ax=axes[ax[1], ax[0]])
+        fig.tight_layout()
         plt.close()
         return fig, axes

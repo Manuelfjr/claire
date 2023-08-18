@@ -85,13 +85,13 @@ Convert and excute the notebooks.
 
 positional arguments:
   input_directory   Dir for notebooks to generate the plots. (default:
-                    {YOU_PROJECT_DIR}/aaai-claire-
+                    {YOUR_PROJECT_DIR}/aaai-claire-
                     clustering/notebooks)
 
   output_directory  Output directory for .pys. (default:
-                    {YOU_PROJECT_DIR}/aaai-claire-
+                    {YOUR_PROJECT_DIR}/aaai-claire-
                     clustering/pipeline/excutables)
-  works             Number of works. (default: 8)
+  works             Number of works. (default: {CORES_IN_YOUR_CPU})
 
 options:
   -h, --help        show this help message and exit

@@ -130,6 +130,12 @@ for i in config.file_names:
     ]
 
 
+# In[ ]:
+
+
+xy_fontsize = 34
+
+
 # ## Plots
 
 # In[ ]:
@@ -174,7 +180,6 @@ for i in models:
 
 
 figs_dataset = {}
-xy_fontsize = 34
 for name, content in tqdm(list(datasets.items())):
     _fig, ax = plt.subplots(1, 1, figsize=(25, 8))
     content = content.dropna()
@@ -204,7 +209,6 @@ for name, content in tqdm(list(datasets.items())):
 
 # global plot
 fig, axes = plt.subplots(len(datasets.keys()), 1, figsize=(25, 8 * len(datasets)), dpi=300)
-
 if not isinstance(axes, np.ndarray):
     axes = [axes]
 
@@ -231,6 +235,8 @@ handler_lines = [
     for param in _params.values()
 ]
 axes[0].legend(handler_lines, models_process, loc="upper left", bbox_to_anchor=(1.00, 1.0), fontsize=26)
+fig.tight_layout()
+fig.subplots_adjust(right=0.8)
 plt.close()
 
 

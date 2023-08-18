@@ -133,7 +133,10 @@ for i_random, i_content in tqdm(list(data_labels.items())[:1]):
             axes.scatter(
                 x=data[j_name].iloc[:, 0], y=data[j_name].iloc[:, 1], c=data_labels[i_random][j_name][i_model].values
             )
-            axes.set_title(i_model)
+            if "spectral_clustering" not in i_model:
+                axes.set_title(i_model, fontsize=18)
+            else:
+                axes.set_title(i_model, fontsize=12)
             fig.tight_layout()
             plt.close()
             figs[i_random][j_name][i_model] = {

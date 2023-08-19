@@ -87,7 +87,7 @@ class CLAIRE:
         return pd.DataFrame(self.results)
 
     def generate_pij_matrix(
-        self, data_results: pd.DataFrame, k_random_models: int = 0, n_clusters: int = 3, experiment_test: bool = False
+        self, data_results: pd.DataFrame, experiment_test: bool = False, works: int = os.cpu_count()
     ) -> pd.DataFrame:
         """Generate the pij matrix.
 
@@ -100,10 +100,7 @@ class CLAIRE:
             pij matrix.
         """
         self._data_results = data_results.copy()
-        # for i in range(k_random_models):
-        #     self._data_results[f"random_model_n{i+1}"] = np.random.randint(0, n_clusters, self._data_results.shape[0])
-
-        tp = TransformPairwise(16)
+        tp = TransformPairwise(works)
         pij = tp.generate_pij_matrix(self._data_results)
 
         if not experiment_test:

@@ -118,7 +118,7 @@ for k_random in tqdm(len_k_random):
         if k_random != -1:
             data_results = pd.concat([data_results, data_random[i].iloc[:, 1 : (k_random + 1 + 1)]], axis=1)
 
-        pij = claire.generate_pij_matrix(data_results, k_random + 1, n_clusters)
+        pij = claire.generate_pij_matrix(data_results)
 
         # set beta4 params
         beta_params = parameters["beta_params"] | {"pij": pij, "n_respondents": pij.shape[1], "n_items": pij.shape[0]}

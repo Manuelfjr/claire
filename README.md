@@ -23,7 +23,7 @@ pip install poetry
 Download this zip file. Thus:
 
 ```bash
-cd claire-clustering/
+cd claire/
 ```
 
 ## Install project dependencies

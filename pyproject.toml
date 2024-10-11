@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "aaai-claire-clustering"
+name = "claire"
 version = "0.1.0"
 description = "CLAIRE: Clustering Evaluation based on Item Response Theory and Model Agreement"
-authors = ["Your Name <you@example.com>"]
+authors = ["Manuel Ferreira-Junior <mfj@cin.ufpe.br>"]
 license = "MIT"
 package-mode = false
 

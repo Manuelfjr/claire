@@ -1,7 +1,7 @@
 ## *CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
 
 <!-- 
-**link:** <a href=https://anonymous.4open.science/r/aaai-claire-clustering-6113/README.md>anonymous-repository</a>
+**link:** <a href=https://anonymous.4open.science/r/claire/README.md>anonymous-repository</a>
 
 <sub>note: The anonymous repository encompasses all the outputs generated within this study.</sub> -->
 
@@ -82,12 +82,10 @@ Convert and excute the notebooks.
 
 positional arguments:
   input_directory   Dir for notebooks to generate the plots. (default:
-                    {YOUR_PROJECT_DIR}/aaai-claire-
-                    clustering/notebooks)
+                    {YOUR_PROJECT_DIR}/claire/notebooks)
 
   output_directory  Output directory for .pys. (default:
-                    {YOUR_PROJECT_DIR}/aaai-claire-
-                    clustering/pipeline/excutables)
+                    {YOUR_PROJECT_DIR}/claire/pipeline/excutables)
   works             Number of works. (default: {CORES_IN_YOUR_CPU})
 
 options:

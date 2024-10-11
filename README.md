@@ -1,11 +1,11 @@
-## aaai-claire-clustering
+## claire-clustering
 
 *CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
 
-
+<!-- 
 **link:** <a href=https://anonymous.4open.science/r/aaai-claire-clustering-6113/README.md>anonymous-repository</a>
 
-<sub>note: The anonymous repository encompasses all the outputs generated within this study.</sub>
+<sub>note: The anonymous repository encompasses all the outputs generated within this study.</sub> -->
 
 
 ## Poetry installation
@@ -25,7 +25,7 @@ pip install poetry
 Download this zip file. Thus:
 
 ```bash
-cd aaai-claire-clustering/
+cd claire-clustering/
 ```
 
 ## Install project dependencies

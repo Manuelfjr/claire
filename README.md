@@ -1,6 +1,4 @@
-## claire-clustering
-
-*CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
+## *CLAIRE: Clustering Evaluation based on Model Agreement and Item Response Theory*
 
 <!-- 
 **link:** <a href=https://anonymous.4open.science/r/aaai-claire-clustering-6113/README.md>anonymous-repository</a>

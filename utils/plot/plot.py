@@ -56,7 +56,7 @@ class GeneratePlots:
         fig.tight_layout()
         _fig[name_diff] = fig
         plt.close()
-        return _fig
+        return _fig, axes
 
     def scatterplot_diff_disc(self, nrows=5, ncols=2, figsize=(18, 14), plot_parameters=None, fontsize=20):
         fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
